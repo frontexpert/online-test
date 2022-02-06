@@ -1,0 +1,15 @@
+.sidenav .collapse .nav-item .nav-link.active {
+    background:#D81B60 !important;    
+}
+
+.nav-link.active .nav-link-text {
+    color: white !important;
+}
+
+i.material-icons {
+    color:black
+}
+
+span.nav-link-text {
+    color: black
+}

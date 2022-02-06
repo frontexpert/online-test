@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Testing Website</title>
+
+    <!-- Bootstrap CSS Link -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <link rel="shortcut icon" href="#">
+    {% load static %}
+
+    <!-- Custom CSS link -->
+    <link rel="stylesheet" href="{% static 'exams/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'exams/css/media.css' %}">
+
+</head>
+<style>
+    body {
+        background-color: #339af0 !important;
+        /* background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.9)), url("https://images.unsplash.com/photo-1516383607781-913a19294fd1?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1053&q=80")center center/cover; */
+    }
+
+    p::selection,
+    a::selection {
+        color: black !important;
+    }
+</style>
+
+<body>
+
+    <section class="signUp__Area">
+        <div class="container">
+            <div class="row">
+
+                <div class="col col-sm-10 col-md-8 col-lg-4 mx-auto signUp__Area__col__1">
+                    <div class="signUp__Area__col__1__first__inner_DIV">
+                        <h2>Sign Up</h2>
+                        <p style="display: none; color: red" id="error_msg">Please fill in this form to create an account!</p>
+                        <hr>
+                    </div>
+
+                    <form action="{% url 'register' %}" method="POST" id="signup_form">
+                        {% csrf_token %}
+                        <div class="sign__up__form__items sign___Up__div__area__1">
+                            <input type="text" placeholder="First Name" name="first_name">
+                            <input type="text" placeholder="Last Name" name="last_name">
+                        </div>
+                        <div class="sign__up__form__items ">
+                            <input type="email" placeholder="Email" name="email">
+                        </div>
+
+                        <div class="sign__up__form__items ">
+                            <input type="password" placeholder="Password" name="password">
+                        </div>
+
+                        <div class="sign__up__form__items sign__up__form__Lastitems">
+                            <input type="password" placeholder="Confirm Password" name="confirm_password">
+                        </div>
+
+                        <div class="signUp__terms__and__condition__container">
+                            <input type="checkbox">
+                            <p>I accept the <a href="#">terms of use</a> & <a href="#">privacy policy</a></p>
+                        </div>
+
+                        <div class="SignUp____btns">
+                            <button class="signup___BTN" type="submit" id="signup_btn">Sign Up</button>
+                            <button class="Google__btn signup___BTN">Google</button>
+                        </div>
+                    </form>
+                </div>
+                <p class="signUp__lastPara">Already have an account? <a href="{% url 'login' %}">login here</a></p>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Bootstrap JS Link -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
+        crossorigin="anonymous"></script>
+
+    <!-- IONICON LINKS -->
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+    <script type="text/javascript" src="{% static 'exams/jquery/jquery-3.6.0.min.js' %}"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#signup_btn").click(function(e) {
+                e.preventDefault();
+
+                let first_name = $("input[name=first_name]").val()
+                let second_name = $("input[name=second_name]").val()
+                let email = $("input[name=eamil]").val()
+                let password = $("input[name=password]").val()
+                let confirm_password = $("input[name=confirm_password]").val()
+
+                if (first_name === "" || second_name === "" || email === "" || password === "" || confirm_password === "") {
+                    $("#error_msg").css('display', 'block')
+                    return
+                }
+
+                if (password !== confirm_password) {
+                    $("#error_msg").html("Please confirm password!")
+                    return
+                }
+
+                $("#signup_form").submit()
+            })
+        })
+    </script>
+
+    <!-- Custom JS -->
+</body>
+
+</html>

@@ -1,0 +1,61 @@
+{% extends "exams/base.html" %}
+    
+{% block content %}
+{% load static %}
+<div class="container my-5">
+  <div class="d-flex justify-content-center" style="margin-top: 50px; margin-bottom: 30px;">
+    <span class="fs-1">{{ score.paper.name }}</span>
+  </div>
+  <div class="accordion" id="accordionExample">
+    {% for question in questions %}
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="heading{{ forloop.counter }}">
+        <button class="accordion-button {% if forloop.counter > 1 %} collapsed {% endif %} fs-3" 
+                type="button" 
+                data-bs-toggle="collapse" 
+                data-bs-target="#collapse{{question.id}}" 
+                aria-expanded="{% if forloop.counter > 1 %} false {% else %} true {% endif %}" 
+                aria-controls="collapse{{question.id}}">
+          {{ forloop.counter }}. {{ question.title}}
+        </button>
+      </h2>
+      <div id="collapse{{question.id}}" class="accordion-collapse collapse {% if forloop.counter == 1 %} show {% endif %}" aria-labelledby="heading{{ forloop.counter }}" data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+          <h4>Answers for this question</h4>
+          {% if question.answer_type == 'single' %}
+            {% for answer in question.answers %}
+              <div class="form-check ps-5 py-2 {{answer.background}} bg-gradient">
+                <input class="form-check-input fs-3" type="radio" name="answer" id="{{answer.id}}" disabled>
+                <label class="form-check-label fs-3" for="{{answer.id}}">
+                  {{ answer.content }}
+                </label>
+              </div>
+            {% endfor %}
+          {% else %}
+            {% for answer in question.answers %}
+              <div class="form-check ps-5 py-2 {{answer.background}} bg-gradient">
+                <input class="form-check-input fs-3" type="checkbox" id="{{answer.id}}" disabled>
+                <label class="form-check-label fs-3" for="{{answer.id}}">
+                  {{ answer.content }}
+                </label>
+              </div>
+            {% endfor %}
+          {% endif %}
+          <h4 class="mt-4">Explanation for this question</h4>
+          <div class="m-3">
+            <span class="fs-4">{{ question.explanation }}</span>
+          </div>
+          <div class="m-3 row">
+            {% for file in question.paths %}
+            <div class="col-4">
+              <img src="{% static file %}" alt="" width="300" height="300">
+            </div>
+            {% endfor%}
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

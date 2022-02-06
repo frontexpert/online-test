@@ -1,0 +1,150 @@
+{% extends "admins/base.html" %}
+
+{% block content %}
+{% load static %}
+<div class="container">
+  <div class="d-flex justify-content-end mb-3">
+    <a href="{% url 'create question' %}" type="button" class="btn btn-info">+ New Question</a>
+  </div>
+  <div class="card my-4">
+    <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+      <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+        <h6 class="text-white text-capitalize ps-3">Question List</h6>
+      </div>
+    </div>
+    <div class="card-body px-0 pb-2">
+      <div class="table-responsive p-0">
+        <table class="table align-items-center mb-0">
+          <thead>
+            <tr>
+              <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Title</th>
+              <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Subject</th>
+              <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Section</th>
+              <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Ease Level</th>
+              <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Question Type</th>
+              <th class="text-secondary opacity-7"></th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for question in questions %}
+            <tr>
+              <td>
+                <div class="d-flex px-3 py-1">
+                  <div class="d-flex flex-column justify-content-center">
+                    <h6 class="mb-0 text-sm">{{ question.title|truncatechars:50 }}</h6>
+                  </div>
+                </div>
+              </td>
+              <td class="align-middle text-center">
+                <span class="text-secondary text-xs font-weight-bold">{{ question.subject.name }}</span>
+              </td>
+              <td class="align-middle text-center">
+                <span class="text-secondary text-xs font-weight-bold">{{ question.section.name }}</span>
+              </td>
+              <td class="align-middle text-center">
+                <span class="text-secondary text-xs font-weight-bold">{{ question.qlevel }}</span>
+              </td>
+              <td class="align-middle text-center">
+                <span class="text-secondary text-xs font-weight-bold">{{ question.answer_type }}</span>
+              </td>
+              <td class="align-middle">
+                <a href="{% url 'edit question' question_id=question.id %}" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip">
+                  <i class="material-icons text-sm me-2">edit</i>
+                </a>
+                <a href="javascript:delQuestion('{{ question.id }}')" class="text-secondary font-weight-bold text-xs text-danger" data-toggle="tooltip">
+                  <i class="material-icons text-sm me-2">delete</i>
+                </a>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <nav aria-label="Page navigation example">
+    <ul class="pagination pagination-primary justify-content-center">
+      <li class="page-item">
+        <a class="page-link" href="javascript:;" aria-label="Previous">
+          <span class="material-icons">
+            keyboard_arrow_left
+          </span>
+          <span class="sr-only">Previous</span>
+        </a>
+      </li>
+      <li class="page-item active"><a class="page-link" href="javascript:;">1</a></li>
+      <li class="page-item"><a class="page-link" href="javascript:;">2</a></li>
+      <li class="page-item"><a class="page-link" href="javascript:;">3</a></li>
+      <li class="page-item">
+        <a class="page-link" href="javascript:;" aria-label="Next">
+          <span class="material-icons">
+            keyboard_arrow_right
+          </span>
+          <span class="sr-only">Next</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+</div>
+
+<!-- Modal for deleting -->
+<div class="modal fade" id="delete_modal" tabindex="-1" role="dialog" aria-labelledby="delete_modal" aria-hidden="true">
+  <div class="modal-dialog modal-danger modal-dialog-centered modal-" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h6 class="font-weight-normal" id="modal-title-notification">Delete a Question</h6>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="color:black">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="py-3 text-center">
+          <h4 class="text-gradient text-danger mt-3">Are you sure to delete this question?</h4>
+          <form role="form text-left" id="delete_form" method="POST" action="{% url 'delete question' %}">
+            {% csrf_token %}
+            <input type="hidden" id="del_question_id" name="del_question_id">
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn bg-gradient-info" id="delete_btn">Ok</button>
+        <button type="button" class="btn btn-outline-secondary ml-auto" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+
+{% block script %}
+<script>
+  $(document).ready(function () {
+
+    $("#detail_modal").on('shown.bs.modal', function () {
+      $('input[name=subject_name]').focus()
+    })
+
+    $("#save_btn").on('click', function() {
+      var subject_id = $('input[name=subject_id]').val()
+      // creating
+      if (subject_id == "") {
+        $("#save_form").attr('action', "{% url 'create subject' %}")
+        $("#save_form").submit()
+      } else {
+        $("#save_form").attr('action', "{% url 'edit subject' %}")
+        $("#save_form").submit()
+      }
+    })
+
+    $("#delete_btn").on('click', function() {
+      $("#delete_form").submit()
+    })
+  })
+
+  function delQuestion(id) {
+    $("#del_question_id").val(id)
+    $("#delete_modal").modal('show')
+  }
+
+</script>
+{% endblock %}

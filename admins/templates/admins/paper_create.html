@@ -1,0 +1,174 @@
+{% extends "admins/base.html" %}
+
+{% block content %}
+{% load static %}
+<div class="container">
+  <form method="post" action="{% url 'save paper' %}" enctype="multipart/form-data" id="create_form">
+    {% csrf_token %}
+    <div class="row">
+      <div class="col">
+        <span>Paper Name</span>
+        <div class="input-group input-group-outline mb-3">
+          <input type="text" class="form-control" name="paper_name" id="paper_name">
+        </div>
+      </div>
+      <div class="col">
+        <span>Time Limit</span>
+        <div class="input-group input-group-outline mb-3">
+          <input type="number" class="form-control" name="time_limit" id="time_limit">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <span>Subject</span>
+        <div class="input-group input-group-outline mb-3">
+          <select class="form-control" onchange="setSubject(this.value)" name="subject" id="subject">
+            {% for subject in subjects %}
+            <option value="{{ subject.id }}">{{ subject.name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+      <div class="col">
+        <span>Section</span>
+        <div class="input-group input-group-outline mb-3">
+          <select class="form-control" id="section" name="section" onchange="setSection(this.value)">
+            {% for section in sections %}
+            <option value="{{ section.id }}">{{ section.name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+    </div>
+    <input type="hidden" name="answers">
+    <div>
+      <span>Questions</span>
+      <div class="input-group input-group-outline mb-3">
+        <ul class="list-group" style="width: 100%;">
+          {% for question in questions %}
+          <li class="list-group-item border-0 d-flex p-3 mb-2 bg-gray-100 border-radius-lg">
+            <div class="d-flex flex-column">
+              <h6 class="text-sm">{{ question.title }}</h6>
+            </div>
+            <div class="ms-auto text-end form-check">
+              <input class="form-check-input" type="checkbox" value="{{ question.id }}" name="q{{ question.id }}">
+            </div>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+    <div class="alert alert-warning alert-dismissible fade show" role="alert" style="display: none;">
+      <span class="alert-icon align-middle">
+        <span class="material-icons text-md" style="color: white;">
+          error_outline
+        </span>
+      </span>
+      <span class="alert-text" style="color: white;"><strong>Warning!</strong> Please insert the Question Paper name!</span>
+      <button type="button" class="btn-close" aria-label="Close" onclick="closeAlert()">
+          <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="mt-2 d-flex justify-content-end">
+      <button type="button" class="btn bg-gradient-info mx-2" id="continue_btn">Continue</button>
+      <a href="{% url 'list paper' %}" type="button" class="btn bg-gradient-secondary mx-2">Quit</a>
+    </div>
+  </form>
+</div>
+{% endblock %}
+
+
+{% block script %}
+<script>
+  $(document).ready(function () {
+    $("#continue_btn").on('click', function() {
+      // validation checking
+      var paper_name = $("#paper_name").val()
+      if (paper_name == "") {
+        $("div.alert").css("display", "block")
+        return
+      }
+      var time_limit = $("#time_limit").val()
+      if (time_limit == "" || time_limit == 0) {
+        $("span.alert-text").html("<strong>Warning!</strong> Please insert valid Time limit!")
+        $("div.alert").css("display", "block")
+        return
+      }
+
+      $("#create_form").submit()
+    })
+  })
+
+  function setSubject(subject_id) {
+    var url = "/admin/get_sections_by_subject_id/" + subject_id;
+    $.get(url, function(res) {
+      $("#section").empty()
+      let sections = JSON.parse(res.sections)
+      // updating section dropdown
+      for (let section of sections) {
+        let opt_ele = 
+          `<option value="${section.pk}">${section.fields.name}</option>`
+          $("#section").append(opt_ele)
+      }
+
+      var url = "/admin/get_questions";
+      var section_id = $("#section").val()
+      var data = {
+        'subject_id': subject_id,
+        'section_id': section_id,
+        csrfmiddlewaretoken: '{{ csrf_token }}'
+      }
+      $.post(url, data, function(res) {
+        $("ul.list-group").empty()
+        let questions = JSON.parse(res.questions)
+        // updating question list
+        for (let question of questions) {
+          let li_ele = 
+            `<li class="list-group-item border-0 d-flex p-3 mb-2 bg-gray-100 border-radius-lg">
+              <div class="d-flex flex-column">
+                <h6 class="text-sm">${ question.fields.title }</h6>
+              </div>
+              <div class="ms-auto text-end form-check">
+                <input class="form-check-input" type="checkbox" value="${ question.pk }" name="q${ question.pk }">
+              </div>
+            </li>`
+          $("ul.list-group").append(li_ele)
+        }
+      })
+    })
+  }
+
+  function setSection(section_id) {
+    var url = "/admin/get_questions";
+    var subject_id = $("#subject").val()
+    var data = {
+      'subject_id': subject_id,
+      'section_id': section_id,
+      csrfmiddlewaretoken: '{{ csrf_token }}'
+    }
+    $.post(url, data, function(res) {
+      $("ul.list-group").empty()
+      let questions = JSON.parse(res.questions)
+      // updating question list
+      for (let question of questions) {
+        let li_ele = 
+          `<li class="list-group-item border-0 d-flex p-3 mb-2 bg-gray-100 border-radius-lg">
+            <div class="d-flex flex-column">
+              <h6 class="text-sm">${ question.fields.title }</h6>
+            </div>
+            <div class="ms-auto text-end form-check">
+              <input class="form-check-input" type="checkbox" value="${ question.pk }" name="q${ question.pk }">
+            </div>
+          </li>`
+        $("ul.list-group").append(li_ele)
+      }
+    })
+  }
+
+  function closeAlert() {
+    $("div.alert").css("display", "none")
+  }
+
+</script>
+{% endblock %}

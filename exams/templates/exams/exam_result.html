@@ -1,0 +1,23 @@
+{% extends "exams/base.html" %}
+    
+    {% block content %}
+    {% load static %}
+    <!-- MAIN SECTION -->
+        <div class="px-4 py-5 my-5 text-center">
+            <img class="d-block mx-auto mb-4" src="{% static 'exams/images/HeroSection/result.jpg' %}" alt="" width="212" height="167">
+            <span class="display-5 fw-bold" style="font-size: 46px;">{{ paper_title }}</span>
+            <div class="col-lg-6 mx-auto">
+              <div class="my-4">
+                <sapn class="fs-3">Your score: {{ score }}%</sapn>
+              </div>
+              <div class="my-4">
+                <sapn class="fs-4">{{ correct_question_amount }} of {{ total_question_amount }} are correct.</sapn>
+              </div>
+              <hr />
+              <div class="d-grid gap-2 d-sm-flex justify-content-sm-center my-5">
+                <a href="{% url 'exam dashboard' %}" class="btn btn-primary btn-lg px-4">My Passed Papers</a>
+              </div>
+            </div>
+          </div>
+
+{% endblock %}

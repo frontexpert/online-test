@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Testing Website</title>
+    {% load static %}
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="{% static 'exams/images/HeroSection/Exam-Logo-Background-PNG-Image.png' %}" type="image/x-icon">
+
+
+    <!-- Bootstrap CSS Link -->
+    <link href="{% static 'exams/css/bootstrap.min.css' %}" rel="stylesheet"
+        integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'exams/css/all.css' %}" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+
+    <!-- Custom CSS link -->
+    <link rel="stylesheet" href="{% static 'exams/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'exams/css/media.css' %}">
+</head>
+
+
+<body>
+    <!-- LOGO & NAVIGATION -->
+    <header class="header border-bottom">
+        <div class="logo">
+            <a href="{% url 'index' %}">
+                <img src="{% static 'exams/images/HeroSection/Exam-Logo-Background-PNG-Image.png' %}" alt="logo"
+                    class="logoImg">
+                TESTME
+            </a>
+        </div>
+
+        <nav class="nav">
+            <ul class="nav_links">
+                <li class="nav_link"><a href="{% url 'index' %}">Home</a></li>
+                <li class="nav_link"><a href="{% url 'exam dashboard' %}">Exam</a></li>
+                <li class="nav_link"><a href="{% url 'contact' %}">Contact</a></li>
+                <li class="nav_link"><a href="{% url 'membership' %}">Become Member</a></li>
+            </ul>
+        </nav>
+        {% if user.is_authenticated %}
+        <div class="dropdown text-end">
+            <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="{% static 'exams/Images/HeroSection/userdefault.png' %}" alt="mdo", width="35" height="35" class="rounded-circle">
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="dropdownUser1">
+                {% if user.is_superuser %}
+                <li><a href="#" class="dropdown-item" style="font-size: 16px !important;">admin</a></li>
+                {% else %}
+                <li><a href="#" class="dropdown-item" style="font-size: 16px !important;">{{ user.first_name }}</a></li>
+                {% endif %}
+                <li><hr class="dropdown-divider"></li>
+                <li><a href="{% url 'logout' %}" class="dropdown-item" style="font-size: 16px !important;">Log out</a></li>
+            </ul>
+        </div>
+        {% else %}
+        <div class="">
+            <button type="button" class="btn btn-outline-danger btn-lg auth-btn" data-bs-toggle="modal" data-bs-target="#loginModal">Login</button>
+            <button type="button" class="btn btn-danger btn-lg auth-btn" data-bs-toggle="modal" data-bs-target="#registerModal">Sign up</button>
+        </div>
+        {% endif %}
+    </header>
+
+    {% block content %} 
+    {% endblock %}
+
+    <!-- FOOTER SECTION -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row footerrow">
+                <div class="col col-sm-12 col-md-12 col-lg-3 mx-auto footer__col__1">
+                    <div class="footerMain">
+                        <img src="{% static 'exams/images/HeroSection/Exam-Logo-Background-PNG-Image.png' %}"
+                            alt="footer logo">
+                        <h2>TESTME</h2>
+                    </div>
+                    <p>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor tempore fugit totam accusantium?
+                        Magnam nulla similique praesen.met consectetur adipisicing elit. Dolor tempore fugit totam
+                        accusantium?
+                        Magnam nulla similique praes
+                    </p>
+                </div>
+
+                <div class="col col-sm-4 col-md-4 col-lg-3 mx-auto footer__col__2">
+                    <ul>
+                        <li><a href="#">Daily updates</a></li>
+                        <li><a href="#">Programming</a></li>
+                        <li><a href="#">Graphic design</a></li>
+                        <li><a href="#">UI/UX trends</a></li>
+                        <li><a href="#">Weekly Exams</a></li>
+                    </ul>
+                </div>
+
+                <div class="col col-sm-12 col-md-12 col-lg-3 mx-auto footer__col__3">
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="./faq.html">FAQ</a></li>
+                        <li><a href="./contact.html">Contact</a></li>
+                        <li><a href="#">Privacy policy</a></li>
+                        <li><a href="#">Terms & condition</a></li>
+                    </ul>
+                </div>
+
+            </div>
+            <hr>
+            <div class="row">
+                <p class="footer__lastPara">Copyright © 2021 Test Me. All rights reserved !</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Register modal -->
+    <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <section class="signUp__Area">
+                    <div class="container">
+                        <div class="mx-auto signUp__Area__col__1">
+                            <div class="signUp__Area__col__1__first__inner_DIV">
+                                <h2>Sign Up</h2>
+                                <p class="error_msg">Please fill in this form to create an account!</p>
+                                <hr>
+                            </div>
+                            <form action="{% url 'register' %}" method="POST" id="signup_form">
+                                {% csrf_token %}
+                                <div class="sign__up__form__items sign___Up__div__area__1">
+                                    <input type="text" placeholder="First Name" name="first_name">
+                                    <input type="text" placeholder="Last Name" name="last_name">
+                                </div>
+                                <div class="sign__up__form__items ">
+                                    <input type="email" placeholder="Email" name="email">
+                                </div>
+        
+                                <div class="sign__up__form__items ">
+                                    <input type="password" placeholder="Password" name="password">
+                                </div>
+        
+                                <div class="sign__up__form__items sign__up__form__Lastitems">
+                                    <input type="password" placeholder="Confirm Password" name="confirm_password">
+                                </div>
+        
+                                <div class="signUp__terms__and__condition__container">
+                                    <input type="checkbox">
+                                    <p>I accept the <a href="#">terms of use</a> & <a href="#">privacy policy</a></p>
+                                </div>
+        
+                                <div class="SignUp____btns">
+                                    <button class="signup___BTN" type="submit" id="signup_btn">Sign Up</button>
+                                    <a href="{% url 'social:begin' 'google-oauth2' %}" class="Google__btn signup___BTN">Google</a>
+                                </div>
+                            </form>
+                        </div>
+                        <p class="signUp__lastPara">Already have an account? <a href="">login here</a></p>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login modal -->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <section class="signUp__Area">
+                    <div class="container">
+                        <div class="mx-auto signUp__Area__col__1">
+                            <div class="signUp__Area__col__1__first__inner_DIV">
+                                <h2>Login</h2>
+                                <p class="error_msg">Please fill in this form to login</p>
+                                <hr>
+                            </div>
+        
+                            <form action="{% url 'login' %}" method="POST" id="login_form">
+                                {% csrf_token %}
+                                <div class="sign__up__form__items ">
+                                    <input name="login_email" type="email" placeholder="Email">
+                                </div>
+                                <div class="sign__up__form__items ">
+                                    <input name="login_password" type="password" placeholder="Password">
+                                </div>
+        
+                                <div class="SignUp____btns">
+                                    <button class="signup___BTN" type="submit" id="login_btn">Login</button>
+                                    <a href="{% url 'social:begin' 'google-oauth2' %}" class="Google__btn signup___BTN">Google</a>
+                                </div>
+                            </form>
+                        </div>
+                        <p class="signUp__lastPara">Not have an account? <a href="">Create account</a></p>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS LINKS -->
+    <script src="{% static 'exams/js/bootstrap.bundle.min.js' %}"></script>
+
+    <!-- IONICON LINKS -->
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+    <!-- Custom JS -->
+    <script type="text/javascript" src="{% static 'exams/jquery/jquery-3.6.0.min.js' %}"></script>
+
+    <script src="{% static 'exams/js/script.js' %}"></script>
+    <script src="{% static 'exams/js/index.js' %}"></script>
+
+    {% block script %}
+    {% endblock %}
+
+    <!-- <script>
+        var GoogleAuth;
+        var SCOPE = 'https://www.googleapis.com/auth/drive.metadata.readonly';
+        function handleClientLoad() {
+            // Load the API's client and auth2 modules.
+            // Call the initClient function after the modules load.
+            gapi.load('client:auth2', initClient);
+        }
+
+        function initClient() {
+            // In practice, your app can retrieve one or more discovery documents.
+            var discoveryUrl = 'https://www.googleapis.com/discovery/v1/apis/drive/v3/rest';
+
+            // Initialize the gapi.client object, which app uses to make API requests.
+            // Get API key and client ID from API Console.
+            // 'scope' field specifies space-delimited list of access scopes.
+            gapi.client.setApiKey( null );
+            gapi.client.init({
+                'apiKey': 'AIzaSyCvx0GaHlRdz2p-GN2zlBXaLPWKC38jRTQ',
+                'clientId': '1033113077182-430h4m94e4go7b2q9of2mb5mfu88rh85.apps.googleusercontent.com',
+                'discoveryDocs': [discoveryUrl],
+                'scope': SCOPE
+            }).then(function () {
+                GoogleAuth = gapi.auth2.getAuthInstance();
+
+                // Listen for sign-in state changes.
+                GoogleAuth.isSignedIn.listen(updateSigninStatus);
+
+                // Handle initial sign-in state. (Determine if user is already signed in.)
+                var user = GoogleAuth.currentUser.get();
+                setSigninStatus();
+
+                // Call handleAuthClick function when user clicks on
+                //      "Sign In/Authorize" button.
+                $('#sign-in-or-out-button').click(function() {
+                    handleAuthClick();
+                });
+                $('#revoke-access-button').click(function() {
+                    revokeAccess();
+                });
+            });
+        }
+
+        function handleAuthClick() {
+            // if (GoogleAuth.isSignedIn.get()) {
+            //     // User is authorized and has clicked "Sign out" button.
+            //     GoogleAuth.signOut();
+            // } else {
+            //     // User is not signed in. Start Google auth flow.
+            //     GoogleAuth.signIn();
+            // }
+            GoogleAuth.signIn();
+        }
+
+        function revokeAccess() {
+            GoogleAuth.disconnect();
+        }
+
+        function setSigninStatus() {
+            var user = GoogleAuth.currentUser.get();
+            console.log(user)
+            var isAuthorized = user.hasGrantedScopes(SCOPE);
+            if (isAuthorized) {
+                console.log("google login success")
+                console.log(user.su)
+                // revokeAccess();
+            } else {
+                console.log("not google login")
+            }
+        }
+
+        function updateSigninStatus() {
+            
+            setSigninStatus();
+        }
+    </script>
+    <script async src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script defer src="https://apis.google.com/js/api.js"
+            onload="this.onload=function(){};handleClientLoad()"
+            onreadystatechange="if (this.readyState === 'complete') this.onload()">
+    </script> -->
+</body>
+
+</html>

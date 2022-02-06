@@ -1,0 +1,1295 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Open+Sans:wght@400;600;700&family=Playfair+Display:wght@400;500;600&display=swap");
+
+/****************/
+/* FONTS USED */
+/***************/
+/* "Lato" , "Open Sans" , "Playfair Display" */
+
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+/****************************/
+/* Colors Declarations */
+/****************************/
+:root {
+  --dark-text: #212529;
+  --text-color: #343a40;
+  --light-black: #555;
+  --text-main: #162353;
+  --dark-grey: #dee2e6;
+  --grey: #e9ecef;
+  --light-grey: #f8f9fa;
+}
+
+/******************/
+/* Padding Space */
+/******************/
+:root {
+  --big-space: 9.6rem;
+  --mid-space: 8rem;
+  --low-space: 6rem;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  line-height: 1;
+  font-weight: 400;
+  background-color: var(--light-grey);
+  font-family: "Lato";
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--dark-text);
+  font-weight: 700;
+  font-family: "Open Sans", sans-serif;
+}
+
+h1::selection,
+h2::selection,
+h3::selection,
+h4::selection,
+h5::selection,
+h6::selection,
+p::selection,
+li::selection,
+span::selection,
+br::selection,
+img::selection {
+  color: crimson;
+  /* background-color: wheat; */
+  /* background-color: var(--grey); */
+}
+
+p {
+  line-height: 1.5;
+}
+
+/****************************/
+/* HEADER SECTION CSS */
+/****************************/
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* padding: 1.2rem 8.2rem 0.8rem 8.2rem; */
+  padding: 0.8rem 9rem;
+  height: 10vh;
+}
+
+.header .logo a {
+  font-size: 2.4rem;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-weight: 600;
+  color: var(--text-main);
+  letter-spacing: -1px;
+}
+
+.header .logo img {
+  width: 50px;
+  height: 50px;
+}
+
+.header .nav .nav_links {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.header .nav .nav_links li {
+  list-style: none;
+  padding: 0.8rem 2.4rem 0 2.4rem;
+  font-size: 1.8rem;
+}
+
+.header .nav .nav_links li a {
+  text-decoration: none;
+  color: var(--dark-text);
+}
+
+.nav_sticky {
+  position: sticky;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  height: 10vh;
+  padding-top: 0;
+  padding-bottom: 0;
+  background-color: #f8f9fafb;
+  z-index: 100;
+  box-shadow: 0 1.2rem 3.2rem rgba(0, 0, 0, 0.03);
+}
+
+/****************************/
+/* NAVBAR ACTIVATION CSS */
+/****************************/
+.burger {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  display: none;
+}
+
+.burger .line {
+  width: 30px;
+  background-color: var(--text-color);
+  height: 3px;
+}
+
+/****************************/
+/* MAIN SECTION ALL CSS */
+/* HERO SECTION CSS */
+/****************************/
+
+.section {
+  padding: var(--big-space) 0;
+}
+
+.section__1 {
+  padding: var(--low-space) 0;
+}
+
+.section__1 .section__1__col_1 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.section__1 .section__1__col_1 h1 {
+  font-size: 5.8rem;
+  font-family: "Lato";
+  line-height: 1.4;
+  letter-spacing: -1px;
+  font-family: "Playfair Display";
+  color: var(--dark-text);
+}
+
+.section__1 .section__1__col_1 h1 span {
+  color: crimson;
+  background-color: var(--grey);
+  padding: 0 1.2rem;
+  /* clip-path: polygon(3% 0%, 100% 0%, 97% 100%, 0% 100%); */
+  font-family: "Playfair Display";
+  border-radius: 1rem;
+}
+
+.section__1 .section__1__col_1 h4 {
+  font-size: 3rem;
+  font-weight: 600;
+  color: var(--dark-text);
+}
+
+.section__1 .section__1__col_1 .ctaDiv {
+  margin-top: 2rem;
+}
+
+.section__1 .section__1__col_1 .ctaDiv a {
+  text-decoration: none;
+  font-size: 2rem;
+  font-size: 2.5rem;
+  font-weight: 600;
+  border: 2px solid crimson;
+  padding: 0.6rem 2rem;
+  border-radius: 1rem;
+  transition: all 0.4s;
+  color: #fff;
+  background-color: crimson;
+  text-transform: uppercase;
+}
+
+.section__1 .section__1__col_1 .ctaDiv a:hover {
+  color: crimson;
+  background-color: var(--light-grey);
+}
+
+.section__1 .section__1__col_2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.section__1 .section__1__col_2 .hero__img {
+  width: 90%;
+}
+
+/* SECOND SECTION */
+.section__2__col_1 {
+  display: flex;
+  gap: 0.5rem;
+  flex-direction: column;
+}
+
+.section__2__col_1 h4 {
+  color: crimson;
+  font-size: 2.4rem;
+  font-weight: 700;
+  font-family: "Open Sans";
+  letter-spacing: 1px;
+}
+
+.section__2__col_1 h2 {
+  font-size: 3.6rem;
+  color: var(--dark-text);
+  letter-spacing: 0.5px;
+  font-family: "Lato";
+}
+
+/****************************/
+/* SECTION 2 SECOND ROW */
+/****************************/
+.section__2__row__2__col__1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.section__2__row__2__col__1 img {
+  width: 70%;
+  /* filter: drop-shadow(5px 5px 4px rgba(0, 0, 0, 0.1)); */
+}
+
+.unique__row {
+  padding: var(--big-space) 0;
+}
+
+.unique__row:last-child {
+  padding: var(--big-space) 0 0 0;
+}
+
+.section__2__row__2__col__2 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.section__2__row__2__col__2 .secondsec___text__div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2rem;
+  width: 70%;
+}
+
+.section__2__row__2__col__2 .secondsec___text__div .iconHolder .Ionicon {
+  font-size: 4rem;
+  padding: 2rem;
+  /* background-color: rgba(220, 20, 60, 0.801); */
+  background-color: #1623539d;
+  border-radius: 50%;
+  color: #fff;
+  margin-bottom: 1rem;
+}
+
+.section__2__row__2__col__2 .secondsec___text__div h2 {
+  color: var(--dark-text);
+  font-weight: 700;
+  font-family: "Lato";
+}
+
+.section__2__row__2__col__2 .secondsec___text__div p {
+  font-size: 1.6rem;
+  color: #555;
+}
+
+/****************************/
+/* THIRD SECTION CSS */
+/****************************/
+.section__3 .section__3__col__1 {
+  background-color: #fff;
+  margin: var(--low-space) 0 0 0;
+  border-radius: 10px;
+  box-shadow: 0 1.2rem 3.2rem rgba(0, 0, 0, 0.1);
+}
+.section__3__col__1 .btn___Holders {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  position: relative;
+  top: -2rem;
+}
+
+.section__3__col__1 .CTA___btn {
+  border: none;
+  font-size: 2rem;
+  font-weight: 600;
+  font-family: "Open Sans";
+  background: none;
+  padding: 1rem 2rem;
+  border-radius: 10px;
+  background-color: #162353da;
+  color: #fff;
+}
+
+.section__3__col__1 .CTA___btn:hover {
+  background-color: #162353;
+}
+
+.section__3__col__1 .activedBTN {
+  transition: all 0.3s;
+  background-color: rgba(220, 20, 60, 0.89);
+}
+
+.section__3__col__1 .activedBTN:hover {
+  background-color: crimson;
+}
+
+.third__sec__content__Box {
+  display: flex;
+  padding: 2rem 4rem;
+  justify-content: space-around;
+  align-items: center;
+  gap: 2rem;
+  display: none;
+}
+
+.third__sec__content__Box__activated {
+  display: flex;
+}
+
+.third__sec__content__Box .Content__Box__Icon {
+  font-size: 4rem;
+  padding: 2rem;
+  background-color: #1623539d;
+  border-radius: 50%;
+  color: #fff;
+  margin-bottom: 1rem;
+}
+
+.third__sec__content__Box h2 {
+  font-weight: 600;
+  font-family: "Open Sans";
+  font-size: 2.4rem;
+}
+
+.third__sec__content__Box p {
+  font-size: 1.6rem;
+  color: var(--text-color);
+}
+
+/****************************/
+/* FOURTH SECTION */
+/****************************/
+.section__4 .slides {
+  margin-top: 5rem;
+}
+
+.section__4 .slides .silde__card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 1.2rem 3.2rem rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  transition: all 1s;
+}
+
+.section__4 .slides .silde__card .slideIcon {
+  align-self: flex-start;
+}
+
+.section__4 .slides .silde__card p {
+  font-size: 1.6rem;
+  color: grey;
+}
+
+.section__4 .slides .silde__card h4 {
+  /* text-transform: uppercase; */
+  letter-spacing: -0.2px;
+  color: #162353;
+  font-family: "Playfair Display";
+  font-size: 2rem;
+}
+
+.slides p::selection,
+.slides h4::selection {
+  color: rgb(255, 174, 0);
+}
+
+.section__4 .slides .silde__card .student___img {
+  border-radius: 50%;
+  height: 100px;
+  max-width: 100px;
+  border: 4px solid crimson;
+}
+
+.section__4 .slides .silde__card .star__ratings .star {
+  color: rgb(255, 174, 0);
+  font-size: 2rem;
+}
+
+.section__4 .slides .silde__card:hover {
+  background-color: rgba(220, 20, 60, 0.726);
+}
+.section__4 .slides .silde__card:hover p,
+.section__4 .slides .silde__card:hover h4 {
+  color: #fff;
+}
+.section__4 .slides .silde__card:hover .student___img {
+  border-right: 5px solid white;
+  border-top: 5px solid white;
+  border-left: 5px solid white;
+  cursor: pointer;
+}
+
+/****************************/
+/* SECTION FIFTH DESIGN */
+/****************************/
+.section__5__col__1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 4rem;
+}
+
+.section__5__col__1 h3 {
+  font-size: 4.2rem;
+  font-weight: 600;
+  text-align: center;
+  color: #555;
+  letter-spacing: -0.5px;
+}
+
+.section__5__col__1 .Last___Cta a {
+  text-decoration: none;
+  font-size: 2.4rem;
+  padding: 0.6rem 2.4rem;
+  border-radius: 30px;
+  font-weight: 600;
+  text-transform: uppercase;
+  background-color: rgba(220, 20, 60, 0.8);
+  color: #fff;
+  transform: all 0.4s;
+}
+
+.section__5__col__1 .Last___Cta a:hover {
+  background-color: crimson;
+}
+
+/****************************/
+/* FOOTER DESIGN */
+/****************************/
+.footer {
+  background-color: var(--dark-text);
+  padding: var(--big-space) 0 0 0;
+  color: #fff;
+}
+
+.footer .footer__col__1 {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.footer .footer__col__1 .footerMain {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.footer .footer__col__1 .footerMain img {
+  width: 60px;
+  height: 60px;
+}
+
+.footer .footer__col__1 .footerMain h2 {
+  color: #fff;
+  font-size: 3rem;
+  letter-spacing: -1px;
+}
+
+.footer .footer__col__1 p {
+  font-size: 1.4rem;
+  color: #fff;
+}
+
+.footer .footer__col__2 ul,
+.footer .footer__col__3 ul {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.footer .footer__col__2 ul li,
+.footer .footer__col__3 ul li {
+  list-style: none;
+}
+
+.footer .footer__col__2 ul li a,
+.footer .footer__col__3 ul li a {
+  text-decoration: none;
+  font-size: 1.6rem;
+  color: #fff;
+  transition: all 0.4s;
+}
+
+.footer .footer__col__2 ul li a:hover,
+.footer .footer__col__3 ul li a:hover {
+  border-bottom: 5px ridge #fff;
+  padding-bottom: 0.3rem;
+  font-size: 2rem;
+}
+
+.footerrow {
+  padding-bottom: 2.4rem;
+}
+
+.footer__lastPara {
+  font-size: 1.8rem;
+  text-align: center;
+}
+
+/****************************/
+/* MEMBERSHIP PAGE DESIGN */
+/****************************/
+.membership__Card__Section .membership__Card {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  padding: 2rem;
+  gap: 2rem;
+  box-shadow: 0 1.2rem 2.4rem rgba(0, 0, 0, 0.1);
+  border-top-right-radius: 10%;
+  border-bottom-left-radius: 10%;
+  transition: all 0.3s;
+}
+
+.membership__Card__Section .membership__Card:hover {
+  border-bottom: 5px solid crimson;
+  border-top: 5px solid crimson;
+}
+
+.membership__Card__Section .membership__Card h2 {
+  font-size: 3.2rem;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.membership__Card__Section .membership__Card h2 span {
+  font-size: 5.2rem;
+  color: crimson;
+  font-weight: 700;
+  font-family: "open sans";
+}
+
+.membership__Card__Section .membership__Card h4 {
+  font-size: 2.4rem;
+  color: var(--text-color);
+}
+
+.membership__Card__Section .membership__Card h6 {
+  font-size: 2rem;
+  color: var(--text-color);
+  font-weight: 600;
+}
+
+.membership__Card__Section .membership__Card .memberCard__inner__1 {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  text-align: center;
+}
+
+.membership__Card__Section .membership__Card .memberCard__inner__2 {
+  font-size: 1.6rem;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0 4rem;
+}
+
+.membership__Card__Section .IonIconCheck {
+  color: #37b24d;
+  font-size: 2rem;
+  margin-right: 1rem;
+}
+
+.membership__Card__Section .membership__Card .memberCard__inner__2 p {
+  position: relative;
+}
+
+.membership__Card__Section .membership__Card .memberCard__inner__2 p span {
+  position: absolute;
+  top: 0;
+}
+
+.membership__Card__Section .membership__Card .memberCard__inner__3 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.membership__Card__Section .membership__Card .memberCard__inner__3 a {
+  text-decoration: none;
+  font-size: 2rem;
+  color: var(--text-color);
+  border: 2px solid crimson;
+  color: crimson;
+  border-radius: 1rem;
+  padding: 0.8rem 1.8rem;
+  transition: all 0.2s;
+}
+
+.membership__Card__Section .membership__Card .memberCard__inner__3 a:hover {
+  background-color: crimson;
+  color: white;
+}
+
+.membership__Card__Section .highlightedCARD {
+  border-radius: 0%;
+  border-bottom: 5px solid crimson;
+  border-top: 5px solid crimson;
+  position: relative;
+}
+
+.membership__Card__Section .highlightedCARD::after {
+  content: "50% off";
+  position: absolute;
+  top: -2%;
+  right: -14%;
+  background-color: crimson;
+  color: white;
+  font-size: 2rem;
+  text-transform: capitalize;
+  padding: 1rem 2rem;
+  font-weight: 700;
+  font-family: "Lato";
+  transform: rotate(49deg);
+  display: none;
+  transition: all 0.3s;
+}
+
+.membership__Card__Section .highlightedCARD:hover:after {
+  display: flex;
+}
+
+/********************/
+/* FAQ SECTION */
+/********************/
+.FAQ__section h1 {
+  text-transform: uppercase;
+  font-family: "Lato";
+  letter-spacing: -1px;
+  word-spacing: 5px;
+  text-align: center;
+  margin-bottom: 5rem;
+  font-weight: 600;
+  font-size: 4rem;
+  color: crimson;
+}
+
+.FAQ__section .FAQ__SECTION__Col_1 {
+  box-shadow: 0.2rem 0.2rem 1rem rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  background-color: #fff;
+  border-radius: 1rem;
+}
+
+.FAQ__section .FAQ__SECTION__Col_1 h4 {
+  font-size: 2.4rem;
+  font-weight: 600;
+  color: rgb(145, 145, 145);
+}
+
+.FAQ__section .FAQ__SECTION__Col_1 p {
+  font-size: 1.6rem;
+  color: var(--text-color);
+  display: none;
+  margin-top: 2rem;
+}
+
+.FAQ__section .faq--lists {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 3rem;
+}
+
+.FAQ__section .faq--lists li {
+  list-style: none;
+}
+
+.FAQ__section .FAQ__SECTION__Col_1 .DOWN___IONICON {
+  background-color: #4c6ef5e5;
+  color: #fff;
+  padding: 0.3rem;
+  font-size: 3rem;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.FAQ__section .faq--list--visible {
+  display: flex;
+  justify-content: space-between;
+}
+
+.FAQ__section .faq--lists .faq__para__active p {
+  display: block;
+}
+
+.FAQ__section .faq--lists .faq__para__active h4 {
+  color: var(--text-color);
+}
+
+/********************/
+/* ERROR PAGE CSS */
+/********************/
+.Error__Section {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.Error__Section__col__1 {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+  align-items: center;
+  justify-content: center;
+}
+.Error__Section__col__1 .GoBack {
+  border: none;
+  outline: none;
+  font-size: 2.4rem;
+  background-color: rgba(236, 15, 59, 0.795);
+  color: #fff;
+  padding: 1rem 2rem;
+  cursor: pointer;
+  font-weight: 600;
+  font-family: "Playfair Display";
+  box-shadow: 0.1rem 0.3rem 1rem rgba(0, 0, 0, 0.4);
+  transition: all 0.3s;
+}
+
+.Error__Section__col__1 .GoBack:hover {
+  background-color: rgba(220, 20, 60);
+}
+
+.Error__Section__col__1 img {
+  width: 100%;
+}
+
+/****************/
+/* CONTACT PAGE*/
+/***************/
+.contact___section__col_1 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3rem;
+}
+.contact___section__col_1 h2,
+.contact___section__col_2 h2 {
+  font-size: 3rem;
+  font-weight: 600;
+  color: crimson;
+  text-transform: capitalize;
+}
+
+.contact___section__col_1 form {
+  width: 100%;
+}
+
+.contact___section__col_1 .form___item__Container .form__item,
+.contact___section__col_1 .form___item__Container .form__item_textarea {
+  width: 100%;
+  margin-bottom: 2rem;
+  font-size: 1.6rem;
+  padding: 1rem;
+  caret-color: crimson;
+  outline-color: crimson;
+}
+.contact___section__col_1 .form___item__Container .form__item_textarea {
+  min-height: 15rem;
+}
+
+.contact___section__col_1 .contact__Form__Btn {
+  border: none;
+  outline: none;
+  background-color: rgba(220, 20, 60, 0.9);
+  text-transform: uppercase;
+  color: #fff;
+  font-size: 1.8rem;
+  cursor: pointer;
+  padding: 1rem 2rem;
+  transition: all 0.3s;
+}
+
+.contact___section__col_1 .contact__Form__Btn:hover {
+  background-color: crimson;
+}
+
+.contact___section__col_2 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-left: 4rem;
+}
+
+.contact___section__col_2 .contact___section__col_2__inner {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 3rem;
+}
+
+.contact___section__col_2 .contact__headers {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.contact___section__col_2 h3 {
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.contact___section__col_2 h4 {
+  font-size: 2rem;
+  color: crimson;
+  font-weight: 600;
+}
+
+.contact___section__col_2 p {
+  font-size: 1.8rem;
+}
+
+.contact___section__col_2 .contact__Ion_Icon {
+  font-size: 3.5rem;
+  padding: 1rem;
+  border-radius: 50%;
+  background-color: rgba(170, 168, 168, 0.384);
+}
+
+.contact___section__col_2 .contact__items {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+
+/**********************/
+/* SIGN-UP PAGE CSS */
+/*********************/
+.signUp__Area {
+  /* min-height: 100vh; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.signUp__Area .signUp__Area__col__1 {
+  padding: 3rem;
+  margin-bottom: 1rem;
+  border-radius: 0.4rem;
+  background-color: #fff;
+}
+
+.signUp__Area .signUp__Area__col__1 h2 {
+  letter-spacing: -1px;
+  font-size: 4rem;
+  font-weight: 600;
+  font-family: "Lato";
+  color: var(--text-color);
+}
+
+.signUp__Area .signUp__Area__col__1__first__inner_DIV p {
+  color: #868e96;
+  font-size: 600;
+  font-family: "Lato";
+  font-size: 1.6rem;
+}
+
+.signUp__Area .signUp__Area__col__1__first__inner_DIV {
+  margin-bottom: 2rem;
+}
+
+.signUp__Area .signUp__Area__col__1 form {
+  width: 100%;
+}
+
+.signUp__Area .signUp__Area__col__1 .sign__up__form__items {
+  width: 100%;
+}
+.signUp__Area .signUp__Area__col__1 .sign__up__form__items input {
+  width: 100%;
+}
+
+.signUp__Area .signUp__Area__col__1 .sign___Up__div__area__1 input {
+  width: 48%;
+}
+
+.signUp__Area .signUp__Area__col__1 .sign__up__form__items input,
+.signUp__Area .signUp__Area__col__1 .sign___Up__div__area__1 input {
+  padding: 1rem 1.5rem;
+  margin-bottom: 2rem;
+  font-size: 1.6rem;
+  outline: none;
+  border: none;
+  background-color: #f1f3f5;
+  border-radius: 0.3rem;
+}
+
+.signUp__Area .signUp__Area__col__1 .sign__up__form__Lastitems input {
+  margin-bottom: 0;
+}
+
+.signUp__Area .signUp__Area__col__1 .sign__up__form__items input::placeholder,
+.signUp__Area
+  .signUp__Area__col__1
+  .sign___Up__div__area__1
+  input::placeholder {
+  color: #868e96;
+}
+
+.signUp__Area .signUp__Area__col__1 .sign___Up__div__area__1 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.signUp__Area .signUp__Area__col__1 .signUp__terms__and__condition__container {
+  display: flex;
+  gap: 0.7rem;
+  align-items: center;
+  padding: 0.5rem 0;
+}
+
+.signUp__Area
+  .signUp__Area__col__1
+  .signUp__terms__and__condition__container
+  p {
+  font-size: 1.6rem;
+  margin-top: 1rem;
+  color: #868e96;
+}
+
+.signUp__Area
+  .signUp__Area__col__1
+  .signUp__terms__and__condition__container
+  p
+  a {
+  text-decoration: none;
+  text-transform: capitalize;
+}
+
+.signUp__Area .signUp__Area__col__1 .signup___BTN {
+  border: none;
+  background-color: #f01831;
+  color: #fff;
+  font-size: 2rem;
+  padding: 0.8rem 2.4rem;
+  border-radius: 0.6rem;
+}
+
+.signUp__Area .signUp__lastPara {
+  text-align: center;
+  font-size: 1.8rem;
+  color: #fff;
+}
+
+.signUp__Area .signUp__lastPara a {
+  color: #fff;
+}
+
+.signUp__Area .SignUp____btns {
+  display: flex;
+  justify-content: space-between;
+}
+
+.auth-btn {
+  font-size: 1.7rem !important;
+  margin-left: 3px;
+  margin-right: 3px;
+}
+
+p.error_msg {
+  display: none; 
+  color: red !important;
+}
+
+
+/**********************/
+/* EXAM PAGE CSS */
+/*********************/
+.exam__level_section .exam__level_section__col__1 {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+}
+
+.exam__level_section .exam__level_section__col__1 .arrow__RT__IONICON {
+  font-size: 4rem;
+  color: var(--text-color);
+  position: relative;
+  top: 0.5rem;
+}
+
+.exam__level_section .exam__level_section__col__1 a {
+  font-size: 5rem;
+  color: var(--text-color);
+  text-decoration: none;
+}
+
+.exam__level_section .exam__level_section__col__1 a:hover {
+  color: crimson;
+}
+
+/********************/
+/* MCQ PAGE CSS */
+/*******************/
+.mcq__section__1 .mcq__section__1__col_diabled {
+  display: none;
+}
+
+.mcq__section__1__col_1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.mcq__section__1 .mcq__section__1__col_1 .rules__for___your_EXAM {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+.mcq__section__1 .mcq__section__1__col_1 .rules__for___your_EXAM h2 {
+  font-weight: 600;
+  font-size: 4rem;
+  color: var(--text-color);
+}
+
+.mcq__section__1 .mcq__section__1__col_1 .rules__for___your_EXAM ol {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.mcq__section__1 .mcq__section__1__col_1 .rules__for___your_EXAM ol li {
+  font-size: 2rem;
+  color: var(--text-color);
+}
+
+.mcq__section__1 .mcq__section__1__col_1 .rules__for___your_EXAM .RuleAccepted {
+  border: none;
+  background-color: #339af0;
+  color: #fff;
+  padding: 1rem 2rem;
+  cursor: pointer;
+  font-size: 2rem;
+  border-radius: 0.3rem;
+}
+
+/*****************************/
+/* MCQ SECTION => 2 DESIGN */
+/*****************************/
+.mcq__section__1 .row {
+  padding: var(--big-space) 0;
+}
+
+.mcq__section__1 .mcq__section__1__col_2 .mcq__section__1__col_2__inner {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.mcq__section__1 .mcq__section__1__col_2 .mcq__section__1__col_2__inner h2 {
+  font-size: 3rem;
+  font-weight: 400;
+  color: var(--text-color);
+  font-family: "Lato";
+}
+
+.mcq__section__1 .mcq__section__1__col_2 .mcq__section__1__col_2__inner ul {
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.mcq__section__1 .mcq__section__1__col_2 .mcq__section__1__col_2__inner ul li {
+  list-style: none;
+  font-family: "Lato";
+  font-size: 2rem;
+  text-transform: lowercase;
+}
+.mcq__section__1 .mcq__section__1__col_2 .mcq__section__1__col_2__inner label {
+  color: var(--text-color);
+}
+
+.mcq__section__1 .mcq__section__1__col_2__inner .mcq__Cta__btns {
+  display: flex;
+  gap: 3rem;
+}
+.mcq__section__1 .mcq__section__1__col_2__inner .mcq__Cta__btns button {
+  font-family: "Lato";
+  border: none;
+  background-color: #339af0;
+  color: #fff;
+  padding: 0.8rem 2rem;
+  cursor: pointer;
+  font-size: 2rem;
+  border-radius: 0.3rem;
+}
+
+.mcq__section__1 .mcq__section__1__col_2__inner .showScore {
+  display: none;
+}
+
+.mcq__section__1 .mcq__section__1__col_2__inner .home__page__Back___btn {
+  border: none;
+  background-color: #339af0;
+  border-radius: 0.3rem;
+  color: #fff;
+  padding: 0.8rem 2rem;
+  cursor: pointer;
+  font-size: 2rem;
+}
+
+.mcq__section__1 .mcq__section__1__col_2__inner .showScore h3 span {
+  font-size: 4rem;
+  font-weight: 600;
+  color: #339af0;
+}
+
+.mcq__section__1 .mcq__section__1__col_2__inner .showScore h3 {
+  font-size: 3rem;
+  font-weight: 400;
+  color: var(--text-color);
+  font-family: "Lato";
+}
+
+/**************************/
+/* ADMIN PANNEL PAGE CSS */
+/*************************/
+.adminPannelConfirmation__section .adminPannelConfirmation__section__col_1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.adminPannelConfirmation__section .adminPannelConfirmation__section__col_1 h1 {
+  font-size: 3rem;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.adminPannelConfirmation__section
+  .adminPannelConfirmation__section__col_1
+  input {
+  width: 80%;
+  font-size: 2rem;
+  padding: 1rem 2rem;
+  caret-color: crimson;
+  border: none;
+  outline: none;
+  background-color: #e9ecef;
+  border-radius: 1rem;
+}
+
+.adminPannelConfirmation__section
+  .adminPannelConfirmation__section__col_1
+  input::placeholder {
+  color: #868e96;
+}
+
+.adminPannelConfirmation__section
+  .adminPannelConfirmation__section__col_1
+  .admin__entry__btn {
+  border: none;
+  background-color: rgba(220, 20, 60, 0.884);
+  border-radius: 0.3rem;
+  color: #fff;
+  padding: 0.8rem 2rem;
+  cursor: pointer;
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.adminPannelConfirmation__section
+  .adminPannelConfirmation__section__col_1
+  .admin__entry__btn:hover {
+  background-color: crimson;
+}
+
+/********************************/
+/* ADMIN PANNEL INPUT SECTION */
+/*******************************/
+.admin__pannel__Input__section {
+  display: none;
+}
+.admin__pannel__Input__section .admin__notes {
+  align-self: flex-start;
+}
+.admin__pannel__Input__section h2 {
+  font-size: 3rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: crimson;
+}
+.admin__pannel__Input__section p {
+  font-size: 1.6rem;
+  color: var(--text-color);
+}
+
+.admin__pannel__Input__section__COL__1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.admin__pannel__Input__section input {
+  width: 100%;
+  font-size: 2rem;
+  padding: 1rem 2rem;
+  caret-color: crimson;
+  border-radius: 1rem;
+  border: none;
+  outline: none;
+  background-color: #e9ecef;
+}
+
+.admin__pannel__Input__section input::placeholder {
+  color: #868e96;
+}
+
+.admin__pannel__Input__section form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.admin__pannel__Input__section .admin__data__upload__btn {
+  border: none;
+  background-color: rgba(220, 20, 60, 0.884);
+  border-radius: 0.3rem;
+  color: #fff;
+  padding: 0.8rem 2rem;
+  cursor: pointer;
+  font-size: 2rem;
+}
+
+.admin__pannel__Input__section .admin__data__upload__btn:hover {
+  background-color: crimson;
+}

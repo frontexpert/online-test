@@ -1,0 +1,172 @@
+{% extends "admins/base.html" %}
+
+{% block content %}
+{% load static %}
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+<div class="container">
+  <form method="post" action="{% url 'save schedule' %}" enctype="multipart/form-data" id="create_form">
+    {% csrf_token %}
+    <div class="row">
+      <div class="col">
+        <span>Users</span>
+        <select class="js-example-basic-single form-control" name="users" onchange="setUser(this.value)">
+          <option disabled selected>Select a user</option>
+          {% for u in users %}
+          <option value="{{ u.id }}">{{ u.email }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col">
+        <span>Subject</span>
+        <div class="input-group input-group-outline mb-3">
+          <select class="form-control" onchange="setSubject(this.value)" name="subject" id="subject">
+            <option style="display: none;" value="0">Select a subject</option>
+            {% for subject in subjects %}
+            <option value="{{ subject.id }}">{{ subject.name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+    </div>
+    <input type="hidden" name="schedule_paper_ids">
+    <div class="mb-5">
+      <div class="row">
+        <div class="col">
+          <span>All Papers</span>
+          <ul class="list-group" id="papers">
+          </ul>
+        </div>
+        <div class="col-1" style="position: relative;">
+          <i class="material-icons opacity-8" style="font-size: 40px; position: absolute; top: 40%">multiple_stop</i>
+        </div>
+        <div class="col">
+          <span>Papers in schedule</span>
+          <ul class="list-group" id="papers_schedule" style="background: white;">
+
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="alert alert-warning alert-dismissible fade show" role="alert" style="display: none;">
+      <span class="alert-icon align-middle">
+        <span class="material-icons text-md" style="color: white;">
+          error_outline
+        </span>
+      </span>
+      <span class="alert-text" style="color: white;"><strong>Warning!</strong> Please select user or subject!</span>
+      <button type="button" class="btn-close" aria-label="Close" onclick="closeAlert()">
+          <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="mt-2 d-flex justify-content-end">
+      <button type="button" class="btn bg-gradient-info mx-2" id="save_btn">Save</button>
+    </div>
+  </form>
+</div>
+{% endblock %}
+
+
+{% block script %}
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $('.js-example-basic-single').select2({
+      placeholder: 'Select an option'
+    });
+
+    var user_select2 = document.getElementsByClassName("select2-selection select2-selection--single")[0]
+    user_select2.style.height = "41px"
+    user_select2.style.backgroundColor = "#f0f2f5"
+
+    $("#save_btn").on('click', function() {
+      // validation checking
+      var user_id = $("select[name=users]").val()
+      var subject_id = $("select[name=subject]").val()
+      if (user_id == null || subject_id == "0") {
+        $("div.alert").css("display", "block")
+        return
+      }
+      var papers_schedule_lis = $("#papers_schedule").children()
+      if (papers_schedule_lis.length == 0) {
+        $("span.alert-text").html("<strong>Warning!</strong> Please add papers to schedule!")
+        $("div.alert").css("display", "block")
+        return
+      }
+
+      var schedul_ids = []
+      papers_schedule_lis.each(function() {
+        schedul_ids.push($(this).attr('id'))
+      })
+
+      $("input[name=schedule_paper_ids]").val(JSON.stringify(schedul_ids))
+
+      $("#create_form").submit()
+    })
+  })
+
+  function setSubject(subject_id) {
+    var user_id = $("select[name=users]").val()
+    if (user_id !== null) {
+      setSchedulePapers(user_id, subject_id)
+    }
+  }
+
+  function setUser(user_id) {
+    var subject_id = $("#subject").val()
+    if (subject_id !== "0") {
+      setSchedulePapers(user_id, subject_id)
+    }
+  }
+
+  function setSchedulePapers(user_id, subject_id) {
+    var url = "/admin/get_papers";
+    var data = {
+      'subject_id': subject_id,
+      'user_id': user_id,
+      csrfmiddlewaretoken: '{{ csrf_token }}'
+    }
+    $.post(url, data, function(res) {
+      $("#papers").empty()
+      let unschedule_papers = JSON.parse(res.unschedule_papers)
+      console.log(unschedule_papers)
+      // updating section dropdown
+      for (let paper of unschedule_papers) {
+        let li_ele = `<li class="list-group-item" id="${paper.pk}" onclick="addToSchedule(this)">${paper.fields.name}</li>`
+        $("#papers").append(li_ele)
+      }
+
+      $("#papers_schedule").empty()
+      let schedule_papers = JSON.parse(res.schedule_papers)
+      console.log(schedule_papers)
+      // updating section dropdown
+      for (let paper of schedule_papers) {
+        let li_ele = `<li class="list-group-item" id="${paper.paper_id}" onclick="removeFromSchedule(this)">${paper.name}</li>`
+        $("#papers_schedule").append(li_ele)
+      }
+    })
+  }
+
+  function closeAlert() {
+    $("div.alert").css("display", "none")
+  }
+
+  function addToSchedule(element) {
+    $("#papers_schedule").append(element)
+    $(element).attr('onclick', 'removeFromSchedule(this)')
+  }
+
+  function removeFromSchedule(element) {
+    $("#papers").append(element)
+    $(element).attr('onclick', 'addToSchedule(this)')
+    $("#papers li").sort(function (a, b) {
+      return parseInt(a.id) - parseInt(b.id);
+    }).each(function () {
+      var elem = $(this);
+      elem.remove();
+      $(elem).appendTo("#papers");
+    });
+  }
+
+</script>
+{% endblock %}

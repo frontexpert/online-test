@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Testing Website</title>
+
+    <!-- Bootstrap CSS Link -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+
+    {% load static %}
+
+    <!-- Custom CSS link -->
+    <link rel="stylesheet" href="{% static 'exams/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'exams/css/media.css' %}">
+
+</head>
+<style>
+    body {
+        /* background-color: #339af0 !important; */
+        background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.9)), url("https://images.unsplash.com/photo-1516383607781-913a19294fd1?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1053&q=80")center center/cover;
+        background-repeat: no-repeat;
+    }
+
+    p::selection,
+    a::selection {
+        color: black !important;
+    }
+</style>
+
+<body>
+
+    <section class="signUp__Area">
+        <div class="container">
+            <div class="row">
+                <div class="col col-sm-10 col-md-8 col-lg-4 mx-auto signUp__Area__col__1">
+                    <div class="signUp__Area__col__1__first__inner_DIV">
+                        <h2>Login</h2>
+                        <p>Please fill in this form to login</p>
+                        <hr>
+                    </div>
+
+                    <form action="#" method="POST">
+
+                        <div class="sign__up__form__items ">
+                            <input name="email" type="email" placeholder="Email">
+                        </div>
+
+                        <div class="sign__up__form__items ">
+                            <input name="password" type="password" placeholder="Password">
+                        </div>
+
+                        <div class="SignUp____btns">
+                            <button class="signup___BTN" type="submit">Login</button>
+                            <button class="Google__btn signup___BTN">Google</button>
+                        </div>
+                    </form>
+                </div>
+                <p class="signUp__lastPara">Not have an account? <a href="{% url 'signup' %}">Create account</a></p>
+            </div>
+        </div>
+    </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Bootstrap JS Link -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
+        crossorigin="anonymous"></script>
+
+    <!-- IONICON LINKS -->
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+    <!-- Custom JS -->
+
+</body>
+
+</html>

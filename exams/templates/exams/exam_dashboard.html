@@ -1,0 +1,97 @@
+{% extends "exams/base.html" %}
+    
+    {% block content %}
+    {% load static %}
+    <!-- MAIN SECTION -->
+    <main>
+        <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="{% static 'exams/images/HeroSection/img/img2.png' %}" class="d-block w-100" alt="..." height="400">
+                </div>
+                <div class="carousel-item">
+                    <img src="{% static 'exams/images/HeroSection/img/img1.jpg' %}" class="d-block w-100" alt="..." height="400">
+                </div>
+                <div class="carousel-item">
+                    <img src="{% static 'exams/images/HeroSection/img/Top_2.jpg' %}" class="d-block w-100" alt="..." height="400">
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+
+        <!-- HERO SECTION -->
+        <section class="section section__1" id="section-1">
+            <div class="container">
+                <span class="fs-1 fw-bold text-danger">Scheduled Question Papers</span>
+                {% if schedules %}
+                <div class="row row-cols-1 row-cols-md-3 g-4 mt-4">
+                    {% for schedule in schedules %}
+                    <div class="col">
+                        <div class="card border-info">
+                            <div class="card-header">
+                                <span class="fs-2 fw-bold">{{ schedule.paper.name }}</span>
+                                <span class="fs-5 float-end mt-3">{{ schedule.paper.time_limit }}mins</span>
+                            </div>
+                            <div class="card-body">
+                                <h4 class="card-title">{{ schedule.subject.name }}</h3>
+                                <h5 class="card-title">{{ schedule.paper.section.name }}</h4>
+                                <p class="card-text" style="font-size: 18px;">With supporting text below as a natural lead-in to additional content.</p>
+                                <a href="{% url 'exam goto' schedule_id=schedule.id %}" class="btn btn-danger btn-lg" style="font-size: 14px;">Go paper</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div class="d-flex justify-content-center" style="margin-top: 50px;">
+                    <i class="far fa-times-circle" style="font-size: 50px;"></i>
+                </div>
+                <p class="fw-bold text-danger text-center" style="font-size: 34px; margin-top: 40px;">There is no scheduled papers yet!</p>
+                {% endif %}
+            </div>
+        </section>
+
+        <hr>
+
+        <!-- Second Section -->
+        <section class="section section__2" id="section-2">
+            <div class="container">
+                <span class="fs-1 fw-bold text-primary">Prompted Question Papers</span>
+                {% if scores %}
+                <div class="row row-cols-1 row-cols-md-3 g-4 mt-4">
+                    {% for score in scores %}
+                    <div class="col">
+                        <div class="card border-info">
+                            <div class="card-header">
+                                <span class="fs-2 fw-bold">{{ score.paper.name }}</span>
+                                <span class="fs-5 float-end mt-3"> {{ score.attempt_at }}</span>
+                            </div>
+                            <div class="card-body">
+                                <h4 class="card-title">{{ score.subject.name }}</h3>
+                                <h5 class="card-title">{{ score.paper.section.name }}</h4>
+                                <p class="card-text" style="font-size: 18px;">With supporting text below as a natural lead-in to additional content.</p>
+                                <a href="{% url 'exam goto prompted' score_id=score.id %}" class="btn btn-primary btn-lg" style="font-size: 14px;">Go paper</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div class="d-flex justify-content-center" style="margin-top: 50px;">
+                    <i class="far fa-times-circle" style="font-size: 50px;"></i>
+                </div>
+                <p class="fw-bold text-danger text-center" style="font-size: 34px; margin-top: 40px;">There is no prompted papers yet!</p>
+                {% endif %}
+            </div>
+        </section>
+
+    </main>
+
+{% endblock %}

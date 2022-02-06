@@ -1,0 +1,6 @@
+python
+pycharm+all
+django
+**/__pycache__
+env
+onlinetest/static/explanation_images/*.png

@@ -1,0 +1,172 @@
+{% extends "admins/base.html" %}
+
+{% block content %}
+{% load static %}
+<div class="container">
+  <div class="d-flex justify-content-end mb-3">
+    <button type="button" class="btn btn-info" id="create_modal_btn">+ New Subject</button>
+  </div>
+  <div class="card my-4">
+    <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+      <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+        <h6 class="text-white text-capitalize ps-3">Subject List</h6>
+      </div>
+    </div>
+    <div class="card-body px-0 pb-2">
+      <div class="table-responsive p-0">
+        <table class="table align-items-center mb-0">
+          <thead>
+            <tr>
+              <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Subject</th>
+              <th class="text-secondary opacity-7"></th>
+              <th class="text-secondary opacity-7"></th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for subject in subjects %}
+            <tr>
+              <td>
+                <div class="d-flex px-3 py-1">
+                  <div class="d-flex flex-column justify-content-center">
+                    <h6 class="mb-0 text-sm">{{ subject.name }}</h6>
+                  </div>
+                </div>
+              </td>
+              <td class="align-middle">
+                <a href="javascript:editSubject('{{ subject.id }}')" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip"
+                  data-original-title="Edit user">
+                  Edit
+                </a>
+              </td>
+              <td class="align-middle">
+                <a href="javascript:delSubject('{{ subject.id }}')" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip"
+                  data-original-title="Edit user">
+                  Delete
+                </a>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal for creating and editing -->
+<div class="modal fade" id="detail_modal" tabindex="-1" role="dialog" aria-labelledby="create_modal" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h6 class="modal-title font-weight-normal">Create a Subject</h6>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="color:black">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body p-0">
+        <div class="card card-plain">
+          <div class="card-header pb-0 text-left">
+            <p class="mb-0">Enter your subject name</p>
+          </div>
+          <div class="card-body">
+            <form role="form text-left" id="save_form" method="POST" action="{% url 'create subject' %}">
+              {% csrf_token %}
+              <div class="input-group input-group-outline my-2">
+                <label class="form-label">Name</label>
+                <input type="text" class="form-control" onfocus="focused(this)" onfocusout="defocused(this)"
+                  name="subject_name" required>
+                <input type="hidden" name="subject_id">
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer text-center">
+        <button type="button" class="btn btn-round bg-gradient-info w-50 mt-3 mb-0" id="save_btn">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal for deleting -->
+<div class="modal fade" id="delete_modal" tabindex="-1" role="dialog" aria-labelledby="delete_modal" aria-hidden="true">
+  <div class="modal-dialog modal-danger modal-dialog-centered modal-" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h6 class="font-weight-normal" id="modal-title-notification">Delete a Subject</h6>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="color:black">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="py-3 text-center">
+          <h4 class="text-gradient text-danger mt-3">Are you sure to delete this subject?</h4>
+          <form role="form text-left" id="delete_form" method="POST" action="{% url 'delete subject' %}">
+            {% csrf_token %}
+            <input type="hidden" id="del_subject_id" name="del_subject_id">
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn bg-gradient-info" id="delete_btn">Ok</button>
+        <button type="button" class="btn btn-outline-secondary ml-auto" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+
+{% block script %}
+<script>
+  $(document).ready(function () {
+    $("#create_modal_btn").click(function () {
+      $(".modal-title").html("Create a Subject")
+      $('input[name=subject_id]').val("")
+      $('input[name=subject_name]').val("")
+      $("#detail_modal").modal('show')
+    })
+
+    $("#detail_modal").on('shown.bs.modal', function () {
+      $('input[name=subject_name]').focus()
+    })
+
+    $("#save_btn").on('click', function() {
+      var subject_id = $('input[name=subject_id]').val()
+      // creating
+      if (subject_id == "") {
+        $("#save_form").attr('action', "{% url 'create subject' %}")
+        $("#save_form").submit()
+      } else {
+        $("#save_form").attr('action', "{% url 'edit subject' %}")
+        $("#save_form").submit()
+      }
+    })
+
+    $("#delete_btn").on('click', function() {
+      $("#delete_form").submit()
+    })
+  })
+
+  function editSubject(id) {
+    var url = "subject_by_id/" + id
+    $.get(url, function (res) {
+      // parsing response and getting subject name
+      let rst = JSON.parse(res.subject);
+      let subject_name = rst[0].fields.name;
+      let subject_id = rst[0].pk;
+
+      $(".modal-title").html("Edit Subject")
+      $("input[name=subject_name]").val(subject_name);
+      $("input[name=subject_id]").val(subject_id);
+      $("#detail_modal").modal('show')
+    })
+  }
+
+  function delSubject(id) {
+    $("#del_subject_id").val(id)
+    $("#delete_modal").modal('show')
+  }
+
+</script>
+{% endblock %}

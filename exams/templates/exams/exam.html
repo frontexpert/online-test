@@ -1,0 +1,297 @@
+{% extends "exams/base.html" %}
+    
+    {% block content %}
+    {% load static %}
+    <!-- MAIN SECTION -->
+    <main>
+        <div class="float-end">
+          <span class="badge bg-danger  fs-1 me-5" id="exam_timer">{{ time_limit }} : 00</span>
+        </div>
+        <div class="px-4 py-5 my-5 container">
+            <div style="margin-bottom: 20px;">
+              <span class="fw-bold fs-1" id="question_no">1</span>
+              <input type="hidden" id="question_id" value="{{ question.id }}">
+              <span class="fw-bold fs-1" id="question_title">. {{ question.title }}</span>
+            </div>
+            <div id="answers_area">
+            {% if question.answer_type is 'single' %}
+              {% for answer in answers %}
+              <div class="form-check" style="margin-left: 20px;">
+                <input class="form-check-input fs-3 my-4" type="radio" name="answer" id="{{answer.id}}" value="{{answer.id}}">
+                <label class="form-check-label fs-2 my-4" for="{{answer.id}}">
+                  {{ answer.content }}
+                </label>
+              </div>              
+              {% endfor %}
+            {% else %}
+              {% for answer in answers %}
+              <div class="form-check" style="margin-left: 20px;">
+                <input class="form-check-input fs-3 my-4" type="checkbox" value="{{answer.id}}" id="{{answer.id}}" name="answer{{ forloop.counter }}">
+                <label class="form-check-label fs-2 my-4" for="{{answer.id}}">
+                  {{ answer.content }}
+                </label>
+              </div>
+              {% endfor %}
+            {% endif %}
+            </div>
+            <div class="mt-5">
+              <button type="button" class="btn btn-primary fs-3" id="prev_btn"> Prev </button>
+              <button type="button" class="btn btn-outline-primary fs-3" id="clear_answer_btn"> Clear Answer </button>
+              <button type="button" class="btn btn-primary fs-3" style="float: right;" id="next_btn"> Next </button>
+              <button type="button" class="btn btn-danger fs-3 d-none" style="float: right;" id="submit_btn" data-bs-toggle="modal" data-bs-target="#submit_modal"> Submit </button>
+            </div>
+        </div>
+    </main>
+    <div class="modal fade" tabindex="-1" id="submit_modal" aria-labelledby="submitModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3 class="modal-title">Submition</h3>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p class="fs-2 text-center">Will you submit this question paper?</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary fs-4" data-bs-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-primary fs-4" id="confirm_btn">Confirm</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="force_submit_modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3 class="modal-title">Submition</h3>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p class="fs-2 text-center">It is time up. Your question papaer will be submited now.</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary fs-4" id="force_submit_btn">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+{% endblock %}
+
+{% block script %}
+<script>
+  let paper_id = "{{ paper_id }}"
+  let process = []
+  let time_limit = "{{ time_limit }}"
+  $(document).ready(function () {
+    $("#next_btn").on('click', function() {
+      nextPrevQuestion("next")
+    })
+
+    $("#prev_btn").on('click', function() {
+      // displaying the 'Next' button and hiding the 'Submit' button
+      if ($("#submit_btn").hasClass("d-block"))
+        $("#submit_btn").removeClass("d-block")
+      $("#submit_btn").addClass("d-none")
+
+      if ($("#next_btn").hasClass("d-none"))
+        $("#next_btn").removeClass("d-none")
+      $("#next_btn").addClass("d-block")
+
+      nextPrevQuestion("prev")
+    })
+
+    $("#clear_answer_btn").on("click", function() {
+      $("#answers_area").children().each(function() {
+        $(this).find("input").prop('checked', false)
+      })
+    })
+
+    $("#confirm_btn").on("click", function() {
+      submitForm(paper_id, process)
+    })
+
+    $("#force_submit_btn").on("click", function() {
+      submitForm(paper_id, process)
+    })
+
+    // making countdown timer for exam limit
+    var timeleft = parseInt(time_limit) * 60
+    console.log(timeleft)
+    myfunc = setInterval(function() {
+      timeleft = timeleft - 1
+      if (timeleft <= 0) {
+          clearInterval(myfunc);
+          $("#force_submit_modal").modal('show')
+          setInterval(function() {
+            $("#force_submit_modal").modal('hide')
+            submitForm(paper_id, process)
+          }, 2500)
+      }   
+
+      var minutes = Math.floor(timeleft / 60);
+      minutes = minutes < 10 ? "0" + minutes : minutes
+      var seconds = Math.floor(timeleft % 60);
+      seconds = seconds < 10 ? "0" + seconds : seconds
+
+      var banner_text = minutes + " : " + seconds 
+
+      $("#exam_timer").html(banner_text)
+    }, 1000)
+  });
+
+  function submitForm(paper_id, process) {
+    // create a form
+    var url = "{% url 'exam submit' %}"
+      var form = document.createElement("form");
+      form.setAttribute("method", "post");
+      form.setAttribute("action", url);
+
+      // Create an input element for paper_id
+      var PI = document.createElement("input");
+      PI.setAttribute("type", "text");
+      PI.setAttribute("name", "paper_id");
+      PI.setAttribute("value", paper_id);
+      form.appendChild(PI)
+
+      // Create an input element for paper_id
+      var PR = document.createElement("input");
+      PR.setAttribute("type", "text");
+      PR.setAttribute("name", "process");
+      PR.setAttribute("value", JSON.stringify(process));
+      form.appendChild(PR)
+
+      // Create an input element for paper_id
+      var CT = document.createElement("input");
+      CT.setAttribute("type", "hidden");
+      CT.setAttribute("name", "csrfmiddlewaretoken");
+      CT.setAttribute("value", '{{ csrf_token }}');
+      form.appendChild(CT)
+
+      document.getElementsByTagName("body")[0].appendChild(form);
+
+      form.submit()
+  }
+
+  function nextPrevQuestion(dir) {
+    // saving the process checked by user one question by one
+    let step = {}
+    let checked_ids = []
+    step.question_id = $("#question_id").val()
+    $("#answers_area").children().each(function() {
+      var checked_id = $(this).find("input:checked").val()
+      if (checked_id !== undefined) 
+        checked_ids.push(checked_id)
+    })
+    step.checked_ids = checked_ids
+
+    // fetching next question or previous question
+    if (dir == "next")
+      var url = "/exam/next_question"
+    else
+      var url = "/exam/prev_question"
+
+    var data = {
+      'question_id': $("#question_id").val(),
+      'paper_id': paper_id,
+      csrfmiddlewaretoken: '{{ csrf_token }}'
+    }
+
+    $.post(url, data, function(res) {
+      // question data
+      question = JSON.parse(res.question)
+      // answer data
+      answers = JSON.parse(res.answers)
+
+      // when arriving at first question or last question while pushing 'Prev' or 'Next' button
+      var is_ui_update = true;
+      if (question === null)
+        if (dir === 'next') {
+          // disabling ui update
+          is_ui_update = false
+          // displaying 'submit' button and hiding the 'next' button
+          if ($("#submit_btn").hasClass("d-none")) 
+            $("#submit_btn").removeClass("d-none")
+          $("#submit_btn").addClass("d-block")
+
+          if ($("#next_btn").hasClass("d-block")) 
+            $("#next_btn").removeClass("d-block")
+          $("#next_btn").addClass("d-none")
+        } else {
+          return
+        }
+
+      // checking if question exists in process array.
+      var is_exist = false;
+      var target_proc = null
+      for (let proc of process)
+        if (proc.question_id === step.question_id) {
+          is_exist = true
+          target_proc = proc
+          break;
+        }
+
+      // if question is not in process, then add question to process
+      if (is_exist === false) 
+        process.push(step)
+      // if question is in process, then edit question in process
+      else {
+        var index = process.indexOf(target_proc);
+
+        if (index !== -1) {
+          process[index] = step;
+        }
+      }
+      
+      // updating UI
+      if (is_ui_update) {
+        $("#answers_area").empty();
+        
+        var current_question_no = parseInt($("#question_no").html())
+        if (dir === 'next')
+          var question_no = current_question_no + 1
+        else
+          var question_no = current_question_no - 1
+        $("#question_no").html(question_no)
+
+        $("#question_id").val(question[0].pk)
+        $("#question_title").html(". " + question[0].fields.title)
+
+        var i = 1;
+        for (let answer of answers) {
+          var is_checked = ""
+          // getting the checking status of answers
+          for (let proc of process) {
+            if (parseInt(proc.question_id) == question[0].pk) {
+              var ids = proc.checked_ids.map(Number)
+              if (ids.includes(answer.pk)) {
+                is_checked = "checked"
+                break;
+              }
+            }
+          }
+
+          if (question[0].fields.answer_type === 'single') {
+            var answer_element = 
+              `<div class="form-check" style="margin-left: 20px;">
+                <input class="form-check-input fs-3 my-4" type="radio" name="answer" id="${answer.pk}" value="${answer.pk}" ${is_checked}>
+                <label class="form-check-label fs-2 my-4" for="${answer.pk}">
+                  ${ answer.fields.content }
+                </label>
+              </div>`
+          } else {
+            var answer_element = 
+              `<div class="form-check" style="margin-left: 20px;">
+                <input class="form-check-input fs-3 my-4" type="checkbox" value="${answer.pk}" id="${answer.pk}" name="answer${i}" ${is_checked}>
+                <label class="form-check-label fs-2 my-4" for="${answer.pk}">
+                  ${ answer.fields.content }
+                </label>
+              </div>`
+            i++;
+          }
+          $("#answers_area").append(answer_element)
+        }
+      }
+    })
+  }
+</script>
+{% endblock %}

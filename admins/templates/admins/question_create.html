@@ -1,0 +1,230 @@
+{% extends "admins/base.html" %}
+
+{% block content %}
+{% load static %}
+<div class="container">
+  <form method="post" action="{% url 'save question' %}" enctype="multipart/form-data" id="create_form">
+    {% csrf_token %}
+    <span>Title</span>
+    <div class="input-group input-group-outline mb-3">
+      <input type="text" class="form-control" name="title" id="title">
+    </div>
+    <div class="row">
+      <div class="col">
+        <span>Subject</span>
+        <div class="input-group input-group-outline mb-3">
+          <select class="form-control" onchange="setSubject(this.value)" name="subject">
+            {% for subject in subjects %}
+            <option value="{{ subject.id }}">{{ subject.name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+      <div class="col">
+        <span>Section</span>
+        <div class="input-group input-group-outline mb-3">
+          <select class="form-control" id="section" name="section">
+            {% for section in sections %}
+            <option value="{{ section.id }}">{{ section.name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <span>Ease Level</span>
+        <div class="input-group input-group-outline mb-3">
+          <select class="form-control" name="ease_level">
+            <option value="easy">Easy</option>
+            <option value="medium">Medium</option>
+            <option value="hard">Hard</option>
+          </select>
+        </div>
+      </div>
+      <div class="col">
+        <span>Answer Type</span>
+        <div class="input-group input-group-outline mb-3">
+          <select class="form-control" name="answer_type" id="answer_type">
+            <option value="single">Single</option>
+            <option value="multiple">Multiple</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="mt-4">
+      <button type="button" class="btn btn-primary btn-sm" id="add_answer_btn" data-bs-toggle="modal" data-bs-target="#answer_title_modal">+ New Answer</button>
+    </div>
+    <div id="answers_div">
+    </div>
+    <div class="mb-3">
+      <span>Explanation</span>
+      <div class="input-group input-group-outline mb-3">
+        <textarea class="form-control" name="explanation" rows="3" placeholder="Say a few words about which and why answers are right." spellcheck="false"></textarea>
+      </div>
+      <div class="fallback">
+        <input name="file" type="file" multiple />
+      </div>
+    </div>
+    <input type="hidden" name="answers">
+    <div class="alert alert-warning alert-dismissible fade show" role="alert" style="display: none;">
+      <span class="alert-icon align-middle">
+        <span class="material-icons text-md" style="color: white;">
+          error_outline
+        </span>
+      </span>
+      <span class="alert-text" style="color: white;"><strong>Warning!</strong> Please insert the question title!</span>
+      <button type="button" class="btn-close" aria-label="Close" onclick="closeAlert()">
+          <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="mt-2 d-flex justify-content-end">
+      <button type="button" class="btn bg-gradient-info mx-2" id="continue_btn">Continue</button>
+      <a href="{% url 'list question' %}" type="button" class="btn bg-gradient-secondary mx-2">Quit</a>
+    </div>
+  </form>
+</div>
+
+<!-- Modal for creating and editing answer content -->
+<div class="modal fade" id="answer_title_modal" tabindex="-1" role="dialog" aria-labelledby="answer_title_modal" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h6 class="modal-title font-weight-normal">Answer</h6>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="color:black">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body p-0">
+        <div class="card card-plain">
+          <div class="card-header pb-0 text-left">
+            <p class="mb-0" id="answer_content_error">Enter your Answer content</p>
+          </div>
+          <div class="card-body">
+            <div class="input-group input-group-outline">
+              <textarea class="form-control" rows="3" placeholder="" spellcheck="false" id="answer_content"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer text-center">
+        <button type="button" class="btn bg-gradient-info mt-3 mb-0" id="answer_save_btn">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+
+{% block script %}
+<script>
+  var checkbox_idx = 0;
+  var radiobox_idx = 0;
+  $(document).ready(function () {
+    $("#answer_title_modal").on('shown.bs.modal', function () {
+      $("#answer_content_error").css('color', 'black')
+    })
+
+    $("#answer_save_btn").on('click', function() {
+      let value = $("#answer_content").val()
+      if (value == "") {
+        $("#answer_content_error").css('color', 'red')
+        return
+      }
+
+      // disabling the 'Answer Type' dropdown
+      $("#answer_type").prop('disabled', true)
+
+      var answer_type = $("select[name=answer_type]").val()
+      if (answer_type == 'multiple') {
+        checkbox_idx++;
+        let name = "answer" + checkbox_idx;
+        let checkbox_element = 
+          `<div class="form-check">
+            <input class="form-check-input" type="checkbox" value="${value}" id="${name}">
+            <label class="custom-control-label" for="${name}">${value}</label>
+            <span class="material-icons text-md" style="margin-left:10px; cursor:pointer" onclick="deleteAnswer(this)">delete</span>
+          </div>`
+        $("#answers_div").append(checkbox_element)
+      } else {
+        radiobox_idx++;
+        let id = "answer" + radiobox_idx;
+        let radio_element = 
+          `<div class="form-check">
+            <input class="form-check-input" type="radio" value="${value}" id="${id}" name="answer">
+            <label class="custom-control-label" for="${id}">${value}</label>
+            <span class="material-icons text-md" style="margin-left:10px; cursor:pointer" onclick="deleteAnswer(this)">delete</span>
+          </div>`
+        $("#answers_div").append(radio_element)
+      }
+      
+      // erasing input and closing modal
+      $("#answer_content").val("");
+
+      $("#answer_title_modal").modal('hide')
+    })
+
+    $("#continue_btn").on('click', function() {
+      // validation checking
+      var title = $("#title").val()
+      if (title == "") {
+        $("div.alert").css("display", "block")
+        return
+      }
+      if ($("#answers_div").children().length == 0) {
+        $("span.alert-text").html("<strong>Warning!</strong> Please add one answer at least!")
+        $("div.alert").css("display", "block")
+        return
+      }
+
+      var idx = 1;
+      var answers = []
+      if ($("#answer_type").val() == 'multiple') {
+        $("#answers_div").children().each(function () {
+          // when question type is multiple, set name attribute through all answer checkboxes
+          var name = "answer" + idx
+          $(this).find("input").attr('name', name)
+          // saving answers in list variable
+          answers.push($(this).find("input").val())
+          idx++
+        })
+      } else {
+        $("#answers_div").children().each(function () {
+          answers.push($(this).find("input").val())
+        })
+      }
+      // submitting answers
+      $("input[name=answers]").val(JSON.stringify(answers))
+      
+      // cancelling the disable attribute of select, so that its value can be submitted
+      $("#answer_type").prop('disabled', false)
+
+      $("#create_form").submit()
+    })
+  })
+
+  function setSubject(subject_id) {
+    var url = "/admin/get_sections_by_subject_id/" + subject_id;
+    $.get(url, function(res) {
+      $("#section").empty()
+      let sections = JSON.parse(res.sections)
+      // updating section dropdown
+      for (let section of sections) {
+        let opt_ele = 
+          `<option value="${section.pk}">${section.fields.name}</option>`
+          $("#section").append(opt_ele)
+      }
+    })
+  }
+
+  function closeAlert() {
+    $("div.alert").css("display", "none")
+  }
+
+  // deleting answer
+  function deleteAnswer(ele) {
+    $(ele).parent().remove()
+  }
+
+</script>
+{% endblock %}

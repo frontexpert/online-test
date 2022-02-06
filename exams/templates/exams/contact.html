@@ -1,0 +1,70 @@
+{% extends "exams/base.html" %}
+    
+    {% block content %}
+    {% load static %}
+    <section class="section contact___section">
+        <div class="container">
+            <div class="row">
+                <div class="col col-sm-12 col-md-12 col-lg-6 mx-auto contact___section__col_1">
+                    <h2>Send us a message</h2>
+                    <form action="#" method="POST">
+                        <div class="form___item__Container">
+                            <input name="name" type="text" placeholder="Name" class="form__item" required>
+                        </div>
+
+                        <div class="form___item__Container">
+                            <input name="email" type="text" placeholder="Email" class="form__item" required>
+                        </div>
+
+                        <div class="form___item__Container">
+                            <input name="mobile" type="text" placeholder="Mobile" class="form__item" required>
+                        </div>
+
+                        <div class="form___item__Container">
+                            <textarea name="message" placeholder="Message" class="form__item_textarea"
+                                required></textarea>
+                        </div>
+
+                        <button class="contact__Form__Btn">Send Message</button>
+                    </form>
+                </div>
+
+                <div class="col col-sm-12 col-md-12 col-lg-6 mx-auto contact___section__col_2">
+                    <div class="contact___section__col_2__inner">
+                        <div class="contact__headers">
+                            <h2>Contact Us</h2>
+                            <h3>We are open for any suggestions or just to have a chat</h3>
+                        </div>
+                        <div class="contact__items">
+                            <ion-icon name="location-outline" class="contact__Ion_Icon"></ion-icon>
+                            <div class="contact__items__inner">
+                                <h4>Address</h4>
+                                <p>Mada CentNew York NY 10018 US</p>
+                            </div>
+                        </div>
+
+                        <div class="contact__items">
+                            <ion-icon name="call-outline" class="contact__Ion_Icon"></ion-icon>
+                            <div class="contact__items__inner">
+                                <h4>Lets Talk</h4>
+                                <p>+1 80081116378 </p>
+                            </div>
+                        </div>
+
+
+                        <div class="contact__items">
+                            <ion-icon name="mail-outline" class="contact__Ion_Icon"></ion-icon>
+                            <div class="contact__items__inner">
+                                <h4>General Support</h4>
+                                <p>yourgmail@gmail.com</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
+    

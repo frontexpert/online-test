@@ -1,0 +1,306 @@
+{% extends "exams/base.html" %}
+    
+    {% block content %}
+    {% load static %}
+    <!-- MAIN SECTION -->
+    <main>
+        <!-- HERO SECTION -->
+        <section class="section section__1" id="section-1">
+            <div class="container">
+                <div class="row">
+                    <div class="col col-sm-12 col-md-12 col-lg-6 section__1__col_1">
+                        <h1>Test me is a <span>educational</span> and <span>learning</span> platform</h1>
+                        <h4>For the global community of students</h4>
+                        <div class="ctaDiv">
+                            <a href="./exam.html">Take test</a>
+                        </div>
+                    </div>
+
+                    <div class="col col-sm-12 col-md-12 col-lg-6 section__1__col_2 mx-auto">
+                        <img src="{% static 'exams/Images/HeroSection/combined_1.png' %}" class="hero__img" alt="examination books">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <hr>
+
+        <!-- Second Section -->
+        <section class="section section__2" id="section-2">
+            <div class="container">
+                <div class="row">
+                    <div class="col col-lg-8 col-md-10 col-sm-12 mx-auto section__2__col_1">
+                        <h4>FEATURES</h4>
+                        <h2>Everything you need in a modern educational system and more.</h2>
+                    </div>
+                </div>
+
+                <div class="row unique__row">
+                    <div class="col col-lg-6 col-md-6 col-sm-12 mx-auto section__2__row__2__col__1">
+                        <img src="{% static 'exams/Images/ImgSvg/boy&girl.svg' %}" alt="educational image">
+                    </div>
+
+                    <div class="col col-lg-6 col-md-6 col-sm-12 mx-auto section__2__row__2__col__2">
+                        <div class="secondsec___text__div">
+                            <span class="iconHolder">
+                                <ion-icon name="desktop-outline" class="Ionicon"></ion-icon>
+                            </span>
+
+                            <h2>100% &nbsp;Digital Content</h2>
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi, quos ratione. Autem iure
+                                magnam dolores maiores, alias molestiae doloribus deleniti aut, reprehenderit culpa
+                                corrupti tempora voluptatum nobis rerum laboriosam delectus.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row unique__row advanced_row">
+                    <div class="col col-lg-6 col-md-6 col-sm-12 mx-auto section__2__row__2__col__2">
+                        <div class="secondsec___text__div">
+                            <span class="iconHolder">
+                                <ion-icon name="alarm-outline" class="Ionicon"></ion-icon>
+                            </span>
+
+                            <h2>100% &nbsp;Timely Content</h2>
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi, quos ratione. Autem iure
+                                magnam dolores maiores, alias molestiae doloribus deleniti aut, reprehenderit culpa
+                                corrupti tempora voluptatum nobis rerum laboriosam delectus.</p>
+                        </div>
+                    </div>
+
+                    <div class="col col-lg-6 col-md-6 col-sm-12 mx-auto section__2__row__2__col__1">
+                        <img src="{% static 'exams/Images/ImgSvg/boy.svg' %}" alt="educational image">
+                    </div>
+                </div>
+
+                <div class="row unique__row">
+                    <div class="col col-lg-6 col-md-6 col-sm-12 mx-auto section__2__row__2__col__1">
+                        <img src="{% static 'exams/Images/ImgSvg/file.svg' %}" alt="educational image">
+                    </div>
+
+                    <div class="col col-lg-6 col-md-6 col-sm-12 mx-auto section__2__row__2__col__2">
+                        <div class="secondsec___text__div">
+                            <span class="iconHolder">
+                                <ion-icon name="document-lock-outline" class="Ionicon"></ion-icon>
+                            </span>
+
+                            <h2>100% &nbsp;Secure File Content</h2>
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi, quos ratione. Autem iure
+                                magnam dolores maiores, alias molestiae doloribus deleniti aut, reprehenderit culpa
+                                corrupti tempora voluptatum nobis rerum laboriosam delectus.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <hr>
+
+        <!-- Third Section -->
+        <section class="section section__3" id="section-3">
+            <div class="container">
+                <div class="row">
+                    <div class="col col-lg-8 col-md-8 col-sm-10 mx-auto section__2__col_1">
+                        <h4>OPERATIONS</h4>
+                        <h2>Everything as simple as possible, but no simpler.</h2>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col col-lg-8 col-md-10 col-sm-12 mx-auto section__3__col__1">
+                        <div class="btn___Holders">
+                            <button data-box="1" class="CTA___btn activedBTN" id="btn__1">01 Heading</button>
+                            <button data-box="2" class="CTA___btn" id="btn__2">02 Heading</button>
+                            <button data-box="3" class="CTA___btn" id="btn__3">03 Heading</button>
+                        </div>
+
+                        <div class="third__sec__content__Box content__Box__1 third__sec__content__Box__activated">
+                            <div class="content__Box__InnerIcon">
+                                <ion-icon name="analytics-outline" class="Content__Box__Icon"></ion-icon>
+                            </div>
+                            <div class="content__Box__InnerContent">
+                                <h2>Buy a home or make your dreams come true, with examination.</h2>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                                    exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                                </p>
+                            </div>
+                        </div>
+
+
+                        <div class="third__sec__content__Box content__Box__2">
+                            <div class="content__Box__InnerIcon">
+                                <ion-icon name="server-outline" class="Content__Box__Icon"></ion-icon>
+                            </div>
+                            <div class="content__Box__InnerContent">
+                                <h2>Put some headlines here to show the change effect.</h2>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                                    exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                                </p>
+                            </div>
+                        </div>
+
+
+                        <div class="third__sec__content__Box content__Box__3">
+                            <div class="content__Box__InnerIcon">
+                                <ion-icon name="accessibility-outline" class="Content__Box__Icon"></ion-icon>
+                            </div>
+                            <div class="content__Box__InnerContent">
+                                <h2>Some demo text is added here to show the effect.</h2>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                                    exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                                </p>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <hr>
+
+
+
+        <!-- Fourth Section -->
+        <section class="section section__4" id="section-4">
+            <div class="container">
+                <div class="row">
+                    <div class="col col-lg-8 col-md-8 col-sm-10 mx-auto section__2__col_1">
+                        <h4 style="letter-spacing: 0.3px;">NOT SURE YET?</h4>
+                        <h2>What our students say about the exam experience.</h2>
+                    </div>
+                </div>
+
+                <div class="row slides">
+
+                    <div class="col col-sm-12 col-md-5 col-lg-3 mx-auto silde__card">
+
+                        <div class="slideIcon">
+                            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="48" height="48"
+                                viewBox="0 0 172 172" style=" fill:#000000;">
+                                <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt"
+                                    stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray=""
+                                    stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none"
+                                    text-anchor="none" style="mix-blend-mode: normal">
+                                    <path d="M0,172v-172h172v172z" fill="none"></path>
+                                    <g fill-opacity="0.801" fill="#dc143c">
+                                        <path
+                                            d="M60.81868,35.83333c-2.26467,0 -4.38443,1.06313 -5.73893,2.88346l-30.75228,41.30632c-1.83467,2.4725 -2.82747,5.47074 -2.82747,8.55241v33.45378c0,7.91917 6.41417,14.33333 14.33333,14.33333h28.66667c7.91917,0 14.33333,-6.41417 14.33333,-14.33333v-28.66667c0,-7.912 -6.41417,-14.33333 -14.33333,-14.33333h-21.56999l23.6416,-31.76009c3.51167,-4.72283 0.14524,-11.43587 -5.75293,-11.43587zM132.34538,35.83333c-2.26467,0 -4.39843,1.06313 -5.75293,2.88346l-30.59831,41.11035c-1.83467,2.4725 -2.82747,5.46357 -2.82747,8.55241v33.45378c0,7.91917 6.41417,14.33333 14.33333,14.33333h28.66667c7.91917,0 14.33333,-6.41417 14.33333,-14.33333v-28.66667c0,-7.91917 -6.41417,-14.33333 -14.33333,-14.33333h-21.56999l23.50163,-31.55013c3.51167,-4.73 0.14524,-11.44987 -5.75293,-11.44987z">
+                                        </path>
+                                    </g>
+                                </g>
+                            </svg>
+                        </div>
+
+                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolore quae, aliquid, beatae culpa
+                            minus tempora atque at quibusdam fuga recusmque.</p>
+                        <img src="https://randomuser.me/api/portraits/men/86.jpg" class="student___img" alt="student">
+                        <h4>Rohit Deshmukh</h4>
+                        <div class="star__ratings">
+                            <ion-icon name="star" class="star"></ion-icon>
+                            <ion-icon name="star" class="star"></ion-icon>
+                            <ion-icon name="star" class="star"></ion-icon>
+                            <ion-icon name="star" class="star"></ion-icon>
+                            <ion-icon name="star" class="star"></ion-icon>
+                        </div>
+
+                    </div>
+
+                    <div class="col col-sm-12 col-md-5 col-lg-3 mx-auto silde__card">
+
+                        <div class="slideIcon">
+                            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="48" height="48"
+                                viewBox="0 0 172 172" style=" fill:#000000;">
+                                <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt"
+                                    stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray=""
+                                    stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none"
+                                    text-anchor="none" style="mix-blend-mode: normal">
+                                    <path d="M0,172v-172h172v172z" fill="none"></path>
+                                    <g fill-opacity="0.801" fill="#dc143c">
+                                        <path
+                                            d="M60.81868,35.83333c-2.26467,0 -4.38443,1.06313 -5.73893,2.88346l-30.75228,41.30632c-1.83467,2.4725 -2.82747,5.47074 -2.82747,8.55241v33.45378c0,7.91917 6.41417,14.33333 14.33333,14.33333h28.66667c7.91917,0 14.33333,-6.41417 14.33333,-14.33333v-28.66667c0,-7.912 -6.41417,-14.33333 -14.33333,-14.33333h-21.56999l23.6416,-31.76009c3.51167,-4.72283 0.14524,-11.43587 -5.75293,-11.43587zM132.34538,35.83333c-2.26467,0 -4.39843,1.06313 -5.75293,2.88346l-30.59831,41.11035c-1.83467,2.4725 -2.82747,5.46357 -2.82747,8.55241v33.45378c0,7.91917 6.41417,14.33333 14.33333,14.33333h28.66667c7.91917,0 14.33333,-6.41417 14.33333,-14.33333v-28.66667c0,-7.91917 -6.41417,-14.33333 -14.33333,-14.33333h-21.56999l23.50163,-31.55013c3.51167,-4.73 0.14524,-11.44987 -5.75293,-11.44987z">
+                                        </path>
+                                    </g>
+                                </g>
+                            </svg>
+                        </div>
+
+                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolore quae, aliquid, beatae culpa
+                            minus tempora atque at quibusdam fuga recusmque.</p>
+                        <img src="https://randomuser.me/api/portraits/women/26.jpg" class="student___img" alt="student">
+                        <h4>Pooja Shukla</h4>
+                        <div class="star__ratings">
+                            <ion-icon name="star" class="star"></ion-icon>
+                            <ion-icon name="star" class="star"></ion-icon>
+                            <ion-icon name="star" class="star"></ion-icon>
+                            <ion-icon name="star" class="star"></ion-icon>
+                            <ion-icon name="star-half" class="star"></ion-icon>
+                        </div>
+                    </div>
+
+                    <div class="col col-sm-12 col-md-5 col-lg-3 mx-auto silde__card">
+
+                        <div class="slideIcon">
+                            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="48" height="48"
+                                viewBox="0 0 172 172" style=" fill:#000000;">
+                                <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt"
+                                    stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray=""
+                                    stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none"
+                                    text-anchor="none" style="mix-blend-mode: normal">
+                                    <path d="M0,172v-172h172v172z" fill="none"></path>
+                                    <g fill-opacity="0.801" fill="#dc143c">
+                                        <path
+                                            d="M60.81868,35.83333c-2.26467,0 -4.38443,1.06313 -5.73893,2.88346l-30.75228,41.30632c-1.83467,2.4725 -2.82747,5.47074 -2.82747,8.55241v33.45378c0,7.91917 6.41417,14.33333 14.33333,14.33333h28.66667c7.91917,0 14.33333,-6.41417 14.33333,-14.33333v-28.66667c0,-7.912 -6.41417,-14.33333 -14.33333,-14.33333h-21.56999l23.6416,-31.76009c3.51167,-4.72283 0.14524,-11.43587 -5.75293,-11.43587zM132.34538,35.83333c-2.26467,0 -4.39843,1.06313 -5.75293,2.88346l-30.59831,41.11035c-1.83467,2.4725 -2.82747,5.46357 -2.82747,8.55241v33.45378c0,7.91917 6.41417,14.33333 14.33333,14.33333h28.66667c7.91917,0 14.33333,-6.41417 14.33333,-14.33333v-28.66667c0,-7.91917 -6.41417,-14.33333 -14.33333,-14.33333h-21.56999l23.50163,-31.55013c3.51167,-4.73 0.14524,-11.44987 -5.75293,-11.44987z">
+                                        </path>
+                                    </g>
+                                </g>
+                            </svg>
+                        </div>
+
+                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolore quae, aliquid, beatae culpa
+                            minus tempora atque at quibusdam fuga recusmque.</p>
+                        <img src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?crop=faces&fit=crop&h=200&w=200&auto=compress&cs=tinysrgb"
+                            class="student___img" alt="student">
+                        <h4>David Rock</h4>
+
+                        <div class="star__ratings">
+                            <ion-icon name="star" class="star"></ion-icon>
+                            <ion-icon name="star" class="star"></ion-icon>
+                            <ion-icon name="star" class="star"></ion-icon>
+                            <ion-icon name="star" class="star"></ion-icon>
+                            <ion-icon name="star" class="star"></ion-icon>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+
+        <hr>
+
+
+        <!--FIFTH SECTION -->
+        <section class="section section__5" id="section-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col col-sm-12 col-md-10 col-lg-8 mx-auto section__5__col__1">
+                        <h3>The best day to give exam was one year ago. The second best is today!</h3>
+                        <div class="Last___Cta">
+                            <a href="./exam.html">start exam</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+{% endblock %}

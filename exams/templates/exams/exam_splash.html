@@ -1,0 +1,19 @@
+{% extends "exams/base.html" %}
+    
+    {% block content %}
+    {% load static %}
+    <!-- MAIN SECTION -->
+        <div class="px-4 py-5 my-5 text-center">
+            <img class="d-block mx-auto mb-4" src="https://skillcertpro.com/wp-content/uploads/2020/07/Business_finance_2-08-512.png" alt="" width="152" height="137">
+            <span class="display-5 fw-bold" style="font-size: 46px;">{{ schedule.paper.name }}</span>
+            <div class="col-lg-6 mx-auto">
+              <sapn class="fs-4">({{ schedule.paper.time_limit }}mins)</sapn>
+              <p class="lead mb-4 fs-3 mt-3">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Hic accusamus mollitia nam cum corrupti asperiores unde nihil, eos beatae non id natus necessitatibus nisi, autem repellat perspiciatis. Harum, aspernatur laborum.</p>
+              <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                <a href="{% url 'exam start' schedule_id=schedule.id %}" class="btn btn-primary btn-lg px-4 gap-3">Start</a>
+                <a href="{% url 'exam dashboard' %}" class="btn btn-outline-secondary btn-lg px-4">Cancel</a>
+              </div>
+            </div>
+          </div>
+
+{% endblock %}
