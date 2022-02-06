@@ -77,13 +77,22 @@ WSGI_APPLICATION = 'onlinetest.wsgi.application'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 DATABASES = {
+    # 'default': {
+    #     'ENGINE'  : 'django.db.backends.mysql', 
+    #     'NAME'    : 'onlinetest',                  
+    #     'USER'    : 'root',              
+    #     'PASSWORD': '',              
+    #     'HOST'    : 'localhost',
+    #     'PORT'    : '3306',
+    # }
+
     'default': {
-        'ENGINE'  : 'django.db.backends.mysql', 
+        'ENGINE'  : 'django.db.backends.postgresql_psycopg2', 
         'NAME'    : 'onlinetest',                  
-        'USER'    : 'root',              
-        'PASSWORD': '',              
+        'USER'    : 'onlinetestuser',              
+        'PASSWORD': 'onlinetest',              
         'HOST'    : 'localhost',
-        'PORT'    : '3306',
+        'PORT'    : '',
     }
 }
 
@@ -122,7 +131,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_URL = 'static/'
+# STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "onlinetest\static"),
 )
